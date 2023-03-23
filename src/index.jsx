@@ -1,11 +1,12 @@
 import { createRoot } from 'react-dom/client';
+import { MainView } from './components/main-view/main-view';
 import './index.scss';
 
 // main component
-const MyApplication = () => {
+const App = () => {
   return (
-    <div className="my-app">
-      <div>Hello Parcel.</div>
+    <div>
+      <MainView />
     </div>
   );
 };
@@ -14,4 +15,4 @@ const container = document.querySelector('#root');
 const root = createRoot(container);
 
 // render app in root DOM element
-root.render(<MyApplication />);
+root.render(<App />);
