@@ -27331,11 +27331,13 @@ const MainView = ()=>{
         if (!token) return;
         fetch("https://movie-pool.onrender.com/movies", {
             headers: {
+                // Bearer Authorization enables authenticated API requests
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>response.json()).then((movies)=>{
             setMovies(movies);
         });
+    // dependency array; ensures fetch is called every time `token` changes
     }, [
         token
     ]);
@@ -27346,7 +27348,7 @@ const MainView = ()=>{
                 children: "Signup and Login View"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 61,
+                lineNumber: 63,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
@@ -27356,19 +27358,19 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 62,
+                lineNumber: 64,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                 children: "or"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 66,
+                lineNumber: 68,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 67,
+                lineNumber: 69,
                 columnNumber: 9
             }, undefined)
         ]
@@ -27380,14 +27382,14 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 74,
+        lineNumber: 76,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty."
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 85,
+        lineNumber: 87,
         columnNumber: 7
     }, undefined);
     return(// Fragment, to group items into one
@@ -27397,7 +27399,7 @@ const MainView = ()=>{
                 children: "Movie List and Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 92,
+                lineNumber: 94,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27406,14 +27408,14 @@ const MainView = ()=>{
                         onMovieClick: (newSelectedMovie)=>{
                             setSelectedMovie(newSelectedMovie);
                         }
-                    }, movie.id, false, {
+                    }, movie._id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 95,
+                        lineNumber: 97,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 93,
+                lineNumber: 95,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27425,7 +27427,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 105,
+                lineNumber: 107,
                 columnNumber: 7
             }, undefined)
         ]
@@ -28493,9 +28495,10 @@ var _s = $RefreshSig$();
 const LoginView = ({ onLoggedIn  })=>{
     _s();
     const [username, setUsername] = (0, _react.useState)("");
-    // TODO: check, without this line I get an error:
     const [password, setPassword] = (0, _react.useState)("");
+    // callback tells the login API to validate username and password
     const handleSubmit = (event)=>{
+        // prevents default reloading of the entire page
         event.preventDefault();
         const data = {
             Username: username,
@@ -28507,11 +28510,16 @@ const LoginView = ({ onLoggedIn  })=>{
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        }).then((response)=>response.json()).then((data)=>{
+        })// transforms response to JSON object
+        .then((response)=>response.json()).then((data)=>{
             console.log("Login response: ", data);
             if (data.user) {
+                // localStorage to persist `user` and `token` data
+                // user will stay authenticated between page loads
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
+                // call prop `onLoggedIn`
+                // pass `user` and `token` back to `MainView` so they can be used in subsequent API requests
                 onLoggedIn(data.user, data.token);
             } else alert("No such user.");
         }).catch((e)=>{
@@ -28531,13 +28539,13 @@ const LoginView = ({ onLoggedIn  })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 44,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 42,
+                lineNumber: 49,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28550,13 +28558,13 @@ const LoginView = ({ onLoggedIn  })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 54,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 52,
+                lineNumber: 59,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28564,13 +28572,13 @@ const LoginView = ({ onLoggedIn  })=>{
                 children: "Log In"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 62,
+                lineNumber: 69,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 41,
+        lineNumber: 48,
         columnNumber: 5
     }, undefined);
 };
@@ -28603,7 +28611,9 @@ const SignupView = ()=>{
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)("");
     const [birthday, setBirthday] = (0, _react.useState)("");
+    // makes an API call to the signup URL passing the form data
     const handleSubmit = (event)=>{
+        // prevents default reloading of the entire page
         event.preventDefault();
         const data = {
             Username: username,
@@ -28612,8 +28622,8 @@ const SignupView = ()=>{
             // TODO: check, birthday is not required in API models yet
             Birthday: birthday
         };
-        // TODO: add signup URL
-        fetch("https://movie-pool.onrender.com/login", {
+        // TODO: add signup URL, at the moment it would be '/users'
+        fetch("https://movie-pool.onrender.com/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -28622,6 +28632,7 @@ const SignupView = ()=>{
         }).then((response)=>{
             if (response.ok) {
                 alert("Signup successful.");
+                // reloads after successful alert has been shown
                 window.location.reload();
             } else alert("Signup failed.");
         });
@@ -28640,13 +28651,13 @@ const SignupView = ()=>{
                         minLength: "5"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 41,
+                        lineNumber: 44,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 39,
+                lineNumber: 42,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28659,13 +28670,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 52,
+                        lineNumber: 55,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 50,
+                lineNumber: 53,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28678,13 +28689,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 62,
+                        lineNumber: 65,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 60,
+                lineNumber: 63,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28697,13 +28708,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 72,
+                        lineNumber: 75,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 70,
+                lineNumber: 73,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28711,13 +28722,13 @@ const SignupView = ()=>{
                 children: "Sign up"
             }, void 0, false, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 80,
+                lineNumber: 83,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 38,
+        lineNumber: 41,
         columnNumber: 5
     }, undefined);
 };

@@ -6,7 +6,9 @@ export const SignupView = () => {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
+  // makes an API call to the signup URL passing the form data
   const handleSubmit = (event) => {
+    // prevents default reloading of the entire page
     event.preventDefault();
 
     const data = {
@@ -17,8 +19,8 @@ export const SignupView = () => {
       Birthday: birthday
     };
 
-    // TODO: add signup URL
-    fetch('https://movie-pool.onrender.com/login', {
+    // TODO: add signup URL, at the moment it would be '/users'
+    fetch('https://movie-pool.onrender.com/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -27,6 +29,7 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert('Signup successful.');
+        // reloads after successful alert has been shown
         window.location.reload();
       } else {
         alert('Signup failed.');

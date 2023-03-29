@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 
+// takes the prop `onLoggedIn`
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('');
-  // TODO: check, without this line I get an error:
   const [password, setPassword] = useState('');
 
+  // callback tells the login API to validate username and password
   const handleSubmit = (event) => {
+    // prevents default reloading of the entire page
     event.preventDefault();
 
     const data = {
@@ -21,12 +23,17 @@ export const LoginView = ({ onLoggedIn }) => {
       },
       body: JSON.stringify(data)
     })
+      // transforms response to JSON object
       .then((response) => response.json())
       .then((data) => {
         console.log('Login response: ', data);
         if (data.user) {
+          // localStorage to persist `user` and `token` data
+          // user will stay authenticated between page loads
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('token', data.token);
+          // call prop `onLoggedIn`
+          // pass `user` and `token` back to `MainView` so they can be used in subsequent API requests
           onLoggedIn(data.user, data.token);
         } else {
           alert('No such user.');

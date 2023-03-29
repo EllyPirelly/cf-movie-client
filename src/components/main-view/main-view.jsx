@@ -45,6 +45,7 @@ export const MainView = () => {
     }
     fetch('https://movie-pool.onrender.com/movies', {
       headers: {
+        // Bearer Authorization enables authenticated API requests
         Authorization: `Bearer ${token}`
       }
     })
@@ -52,6 +53,7 @@ export const MainView = () => {
       .then((movies) => {
         setMovies(movies);
       });
+    // dependency array; ensures fetch is called every time `token` changes
   }, [token]);
 
   if (!user) {
@@ -93,7 +95,7 @@ export const MainView = () => {
       <div>
         {movies.map((movie) => (
           <MovieCard
-            key={movie.id}
+            key={movie._id}
             movie={movie}
             onMovieClick={(newSelectedMovie) => {
               setSelectedMovie(newSelectedMovie);
