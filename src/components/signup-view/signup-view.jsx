@@ -12,20 +12,31 @@ export const SignupView = () => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
-      Email: email,
+      userName: username,
+      password: password,
+      email: email,
       // TODO: check, birthday is not required in API models yet
-      Birthday: birthday
+      birthDate: birthday
     };
 
-    // TODO: add signup URL, at the moment it would be '/users'
+    // array test
+    const test = [
+      'test', 'test 2'
+    ];
+
+    // object test
+    const objecttest = {
+      Test: test
+    };
+
     fetch('https://movie-pool.onrender.com/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringyfy(data)
+      // body: JSON.stringify(data)
+      // body: JSON.stringify(test)
+      body: JSON.stringify(objecttest)
     }).then((response) => {
       if (response.ok) {
         alert('Signup successful.');

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { useState } from 'react';
 
 // takes the prop `onLoggedIn`
@@ -12,8 +12,18 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password
+      userName: username,
+      password: password
+    };
+
+    // array test
+    const test = [
+      'test', 'test 2'
+    ];
+
+    // object test
+    const objecttest = {
+      Test: test
     };
 
     fetch('https://movie-pool.onrender.com/login', {
@@ -21,7 +31,9 @@ export const LoginView = ({ onLoggedIn }) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      // body: JSON.stringify(data)
+      // body: JSON.stringify(test)
+      body: JSON.stringify(objecttest)
     })
       // transforms response to JSON object
       .then((response) => response.json())
