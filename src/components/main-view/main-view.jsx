@@ -60,12 +60,12 @@ export const MainView = () => {
     return (
       // Fragment, to group items into one
       <>
-        <h1>Signup and Login View</h1>
+        <h2>Login</h2>
         <LoginView onLoggedIn={(user, token) => {
           setUser(user);
           setToken(token);
         }} />
-        <h2>or</h2>
+        <h2>or sign up</h2>
         <SignupView />
       </>
     );

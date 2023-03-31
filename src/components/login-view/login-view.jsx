@@ -31,9 +31,9 @@ export const LoginView = ({ onLoggedIn }) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      // body: JSON.stringify(data)
+      body: JSON.stringify(data)
       // body: JSON.stringify(test)
-      body: JSON.stringify(objecttest)
+      // body: JSON.stringify(objecttest)
     })
       // transforms response to JSON object
       .then((response) => response.json())

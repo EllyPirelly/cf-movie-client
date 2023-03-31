@@ -27344,8 +27344,8 @@ const MainView = ()=>{
     if (!user) return(// Fragment, to group items into one
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "Signup and Login View"
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                children: "Login"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
                 lineNumber: 63,
@@ -27362,7 +27362,7 @@ const MainView = ()=>{
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "or"
+                children: "or sign up"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
                 lineNumber: 68,
@@ -28518,9 +28518,7 @@ const LoginView = ({ onLoggedIn  })=>{
             headers: {
                 "Content-Type": "application/json"
             },
-            // body: JSON.stringify(data)
-            // body: JSON.stringify(test)
-            body: JSON.stringify(objecttest)
+            body: JSON.stringify(data)
         })// transforms response to JSON object
         .then((response)=>response.json()).then((data)=>{
             console.log("Login response: ", data);
@@ -28647,9 +28645,7 @@ const SignupView = ()=>{
             headers: {
                 "Content-Type": "application/json"
             },
-            // body: JSON.stringify(data)
-            // body: JSON.stringify(test)
-            body: JSON.stringify(objecttest)
+            body: JSON.stringify(data)
         }).then((response)=>{
             if (response.ok) {
                 alert("Signup successful.");
