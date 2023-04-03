@@ -18,17 +18,17 @@ The MoviePool Client App
 filtering movies)
 
 ### Languages, Libraries, Frameworks, Tools
-- TODO
 - HTML
 - SCSS
 - JavaScript
 - JSX
+- Parcel.js
 - React
 - React DOM
-- Parcel.js
+- prop-types package
 
 ### How to run this?
 - clone the repo
 - `cd` into project
 - `npm install`
-- run parcel to build the project with `npx parcel src/index.html`
+- run parcel to build the project with `npm run start`
