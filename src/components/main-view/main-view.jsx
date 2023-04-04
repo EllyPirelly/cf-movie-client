@@ -91,7 +91,7 @@ export const MainView = () => {
   return (
     // Fragment, to group items into one
     <>
-      <h1>Movie List and Logout</h1>
+      <h1>Movie List (and Logout - scroll down)</h1>
       <div>
         {movies.map((movie) => (
           <MovieCard
