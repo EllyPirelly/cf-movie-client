@@ -1,40 +1,34 @@
+import { Button, Image } from 'react-bootstrap';
+
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
-      <h2>I am the Movie View</h2>
       <div>
-        <img src={movie.imagePath} className="movie-card__img" alt="" />
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{movie.title}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movie.description}</span>
-      </div>
-      <div>
-        <div>
-          <span>Genre: </span>
-          <span>{movie.genre.genreName}</span>
-        </div>
-        <div>
-          <span>Genre Description: </span>
-          <span>{movie.genre.description}</span>
-        </div>
-      </div>
-      <div>
-        <div>
-          <span>Director: </span>
-          <span>{movie.director.directorName}</span>
-        </div>
-        <div>
-          <span>Bio: </span>
-          <span>{movie.director.bio}</span>
-        </div>
+        <Image className="img-fluid w-50 h-auto" src={movie.imagePath} />
       </div>
 
-      <button onClick={onBackClick} className='back-button'>Back</button>
+      <h3>{movie.title}</h3>
+
+      <div>
+        <h4>Description: </h4>
+        <p>{movie.description}</p>
+      </div>
+
+      <div>
+        <h4>Genre: </h4>
+        <p>{movie.genre.genreName}</p>
+        <h4>Genre Description: </h4>
+        <p>{movie.genre.description}</p>
+      </div>
+
+      <div>
+        <h4>Director: </h4>
+        <p>{movie.director.directorName}</p>
+        <h4>Director Bio: </h4>
+        <p>{movie.director.bio}</p>
+      </div>
+
+      <Button onClick={onBackClick} variant='secondary'>Back</Button>
     </div>
   );
 };

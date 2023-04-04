@@ -62,30 +62,36 @@ export const MainView = () => {
   return (
     <Row className='justify-content-md-center'>
       {!user ? (
-        <Col md={5}>
-          <h2>Login</h2>
+        <Col xs={12}>
+          <h2>Log in</h2>
           <LoginView onLoggedIn={(user, token) => {
             setUser(user);
             setToken(token);
           }} />
-          <h2>or sign up</h2>
+          <h2>Or sign up</h2>
           <SignupView />
+          {/* <Button variant='secondary' className='w-100' onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}>Logout</Button> */}
         </Col>
       ) : selectedMovie ? (
-        <Col md={8} style={{ border: '1px solid green' }}>
+        <Col md={12}>
           <MovieView
             movie={selectedMovie}
             onBackClick={() => {
               setSelectedMovie(null);
             }}
           />
+
         </Col>
       ) : movies.length === 0 ? (
         <div>The list is empty.</div>
       ) : (
         <>
           {movies.map((movie) => (
-            <Col className='mb-5' key={movie._id} md={3}>
+            <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
               <MovieCard
                 movie={movie}
                 onMovieClick={(newSelectedMovie) => {
@@ -94,13 +100,14 @@ export const MainView = () => {
               />
             </Col>
           ))}
+
+          <Button variant='secondary' className='w-50' onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}>Logout</Button>
         </>
       )}
-      <Button variant='secondary' onClick={() => {
-        setUser(null);
-        setToken(null);
-        localStorage.clear();
-      }}>Logout</Button>
     </Row>
   );
 };
