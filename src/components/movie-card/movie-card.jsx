@@ -1,14 +1,23 @@
 import PropTypes from 'prop-types';
+import { Button, Card } from 'react-bootstrap';
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div
+    <Card className='h-100 text-center bg-info'
       onClick={() => {
         onMovieClick(movie);
       }}
     >
-      {movie.title}
-    </div>
+      <Card.Img className='img-fluid h-100 w-auto' variant="top" src={movie.imagePath} />
+      <Card.Body>
+        <Card.Title>{movie.title}</Card.Title>
+        <Card.Text>{movie.director.directorName}</Card.Text>
+        <Button variant='secondary' className='w-100'>See More</Button>
+        {/* shouldn't this be an <a></a> as we are not submitting anything?? */}
+        {/* <a href='#' variant='primary' className='w-100'>See More</a> */}
+      </Card.Body>
+
+    </Card>
   );
 };
 

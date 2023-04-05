@@ -1,4 +1,53 @@
-.movie-card__img {
-  width: 250px;
-  height: auto;
+// Colors are not finally set yet, as adapting bootstrap colors is still quite confusing atm
+// $primary: #ed6e2d;
+// $primary: #6f1341;
+$primary: #ed6e2d;
+$secondary: #d4d4d4;
+$info: #6f1341;
+$body-bg: #f6cab5;
+$body-color: #282828;
+// $body-color: rgb(40, 40, 40);
+@import '~bootstrap/scss/bootstrap.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #6f1341;
+  background-image: url('../src/img/svg-rainbow-vortex.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  min-height: 100%;
+}
+
+h2,
+h3,
+h4,
+p,
+label,
+span,
+.card-title {
+  color: #fff;
+}
+
+#root {
+  height: 100vh;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(40, 40, 40, .08), 0 0 6px rgba(40, 40, 40, .05);
+  cursor: pointer;
+  transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(40, 40, 40, .12), 0 4px 8px rgba(40, 40, 40, .06);
+    transform: scale(1.05);
+  }
 }

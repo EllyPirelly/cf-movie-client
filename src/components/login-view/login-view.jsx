@@ -1,5 +1,6 @@
-// import React from 'react';
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 // takes the prop `onLoggedIn`
 export const LoginView = ({ onLoggedIn }) => {
@@ -16,24 +17,12 @@ export const LoginView = ({ onLoggedIn }) => {
       password: password
     };
 
-    // array test
-    const test = [
-      'test', 'test 2'
-    ];
-
-    // object test
-    const objecttest = {
-      Test: test
-    };
-
     fetch('https://movie-pool.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-      // body: JSON.stringify(test)
-      // body: JSON.stringify(objecttest)
     })
       // transforms response to JSON object
       .then((response) => response.json())
@@ -57,28 +46,29 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId='formUsername'>
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type='text'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          minLength='5'
         />
-      </label>
+      </Form.Group>
 
-      <label>
-        Password:
-        <input
+      <Form.Group controlId='formPassword'>
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
+      </Form.Group>
 
-      <button type='submit'>Log In</button>
-    </form>
+      <Button className='mt-3 mb-3' type='submit' variant='primary'>Log In</Button>
+    </Form>
   );
 };

@@ -3,14 +3,17 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedToken = localStorage.getItem('token');
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const storedToken = localStorage.getItem('token');
+  const [token, setToken] = useState(storedToken ? storedToken : null);
 
   // TODO: delete in the process
   // useEffect(() => {
@@ -56,59 +59,55 @@ export const MainView = () => {
     // dependency array; ensures fetch is called every time `token` changes
   }, [token]);
 
-  if (!user) {
-    return (
-      // Fragment, to group items into one
-      <>
-        <h2>Login</h2>
-        <LoginView onLoggedIn={(user, token) => {
-          setUser(user);
-          setToken(token);
-        }} />
-        <h2>or sign up</h2>
-        <SignupView />
-      </>
-    );
-  }
-
-  if (selectedMovie) {
-    return (
-      <MovieView
-        movie={selectedMovie}
-        onBackClick={() => {
-          setSelectedMovie(null);
-        }}
-      />
-    );
-  }
-
-  if (movies.length === 0) {
-    return (
-      <div>The list is empty.</div>
-    )
-  };
-
   return (
-    // Fragment, to group items into one
-    <>
-      <h1>Movie List and Logout</h1>
-      <div>
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie._id}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
+    <Row className='justify-content-md-center'>
+      {!user ? (
+        <Col xs={12}>
+          <h2>Log in</h2>
+          <LoginView onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }} />
+          <h2>Or sign up</h2>
+          <SignupView />
+          {/* <Button variant='secondary' className='w-100' onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}>Logout</Button> */}
+        </Col>
+      ) : selectedMovie ? (
+        <Col md={12}>
+          <MovieView
+            movie={selectedMovie}
+            onBackClick={() => {
+              setSelectedMovie(null);
             }}
           />
-        ))}
-      </div>
 
-      <button onClick={() => {
-        setUser(null);
-        setToken(null);
-        localStorage.clear();
-      }}>Logout</button>
-    </>
+        </Col>
+      ) : movies.length === 0 ? (
+        <div>The list is empty.</div>
+      ) : (
+        <>
+          {movies.map((movie) => (
+            <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
+              <MovieCard
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  setSelectedMovie(newSelectedMovie);
+                }}
+              />
+            </Col>
+          ))}
+
+          <Button variant='secondary' className='w-50' onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}>Logout</Button>
+        </>
+      )}
+    </Row>
   );
 };

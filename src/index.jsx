@@ -1,13 +1,14 @@
 import { createRoot } from 'react-dom/client';
 import { MainView } from './components/main-view/main-view';
+import Container from 'react-bootstrap/Container';
 import './index.scss';
 
 // main component
 const App = () => {
   return (
-    <div>
+    <Container className='p-5 bg-dark bg-opacity-50 h-100'>
       <MainView />
-    </div>
+    </Container>
   );
 };
 
