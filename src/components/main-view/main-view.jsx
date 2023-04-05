@@ -4,44 +4,16 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
-import Button from 'react-bootstrap/Button';
+import { NavigationBar } from '../navigation-bar/navigation-bar';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const storedToken = localStorage.getItem('token');
   const [token, setToken] = useState(storedToken ? storedToken : null);
-
-  // TODO: delete in the process
-  // useEffect(() => {
-  //   fetch('https://movie-pool.onrender.com/movies')
-  //     .then((response) => response.json()
-  //       .then((data) => {
-  //         const moviesFromApi = data.map((movie) => {
-  //           return {
-  //             id: movie._id,
-  //             description: movie.description,
-  //             director: {
-  //               directorName: movie.director.directorName,
-  //               bio: movie.director.bio
-  //             },
-  //             genre: {
-  //               genreName: movie.genre.genreName,
-  //               description: movie.genre.description
-  //             },
-  //             imagePath: movie.imagePath,
-  //             title: movie.title
-  //           };
-  //         });
-
-  //         setMovies(moviesFromApi);
-  //         console.log('movies from api: ', data);
-  //       }));
-  // }, []);
 
   useEffect(() => {
     if (!token) {
@@ -62,6 +34,15 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
+
       <Row className='justify-content-md-center'>
         <Routes>
           <Route
@@ -89,10 +70,11 @@ export const MainView = () => {
                 ) : (
                   <Col xs={12}>
                     <h2>Log in</h2>
-                    <LoginView onLoggedIn={(user, token) => {
-                      setUser(user);
-                      setToken(token);
-                    }} />
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }} />
                   </Col>
                 )}
               </>
@@ -107,6 +89,7 @@ export const MainView = () => {
                   <Navigate to='/login' replace />
                 ) : movies.length === 0 ? (
                   <Col>The list is empty.</Col>
+                  // <div>The list is empty.</div>
                 ) : (
                   <Col md={12}>
                     <MovieView movies={movies} />
@@ -132,12 +115,6 @@ export const MainView = () => {
                         <MovieCard movie={movie} />
                       </Col>
                     ))}
-
-                    <Button variant='secondary' className='w-50' onClick={() => {
-                      setUser(null);
-                      setToken(null);
-                      localStorage.clear();
-                    }}>Logout</Button>
                   </>
                 )}
               </>
