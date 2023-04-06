@@ -36,10 +36,11 @@ span,
 }
 
 #root {
-  height: 100%;
+  // height: 100%;
+  height: 100vh;
 }
 
-.card {
+.movie-view__card {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 6px 10px rgba(40, 40, 40, .08), 0 0 6px rgba(40, 40, 40, .05);

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const MovieCard = ({ movie }) => {
   return (
-    <Card className='h-100 text-center bg-info'>
+    <Card className='movie-view__card h-100 text-center bg-info'>
       <Card.Img className='img-fluid h-100 w-auto' variant="top" src={movie.imagePath} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
@@ -16,6 +16,20 @@ export const MovieCard = ({ movie }) => {
       </Card.Body>
     </Card>
   );
+
+  // alternative with whole card linked - TODO: maybe use
+  // return (
+  //   <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+  //     <Card className='h-100 text-center bg-info'>
+  //       <Card.Img className='img-fluid h-100 w-auto' variant="top" src={movie.imagePath} />
+  //       <Card.Body>
+  //         <Card.Title>{movie.title}</Card.Title>
+  //         <Card.Text>{movie.director.directorName}</Card.Text>
+  //         <Button variant='secondary' className='w-100'>See More</Button>
+  //       </Card.Body>
+  //     </Card>
+  //   </Link>
+  // );
 };
 
 MovieCard.propTypes = {
