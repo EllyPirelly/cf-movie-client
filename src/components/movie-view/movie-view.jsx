@@ -34,7 +34,10 @@ export const MovieView = ({ movies }) => {
         <h4>Director Bio: </h4>
         <p>{movie.director.bio}</p>
       </div>
-
+      {/* if not favorite, add */}
+      <Button>Add to Favorites</Button>
+      {/* if already favorite, message that is */}
+      <div>This movie is already on your Favorites list.</div>
       <Link to={`/`}>
         <Button variant='secondary'>Back</Button>
       </Link>

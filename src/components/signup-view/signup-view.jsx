@@ -1,3 +1,4 @@
+// import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -17,7 +18,6 @@ export const SignupView = () => {
       userName: username,
       password: password,
       email: email,
-      // TODO: check, birthday is not required in API models yet
       birthDate: birthday
     };
 

@@ -9,11 +9,11 @@ import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { Col, Row } from 'react-bootstrap';
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([]);
   const storedUser = JSON.parse(localStorage.getItem('user'));
-  const [user, setUser] = useState(storedUser ? storedUser : null);
   const storedToken = localStorage.getItem('token');
+  const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (!token) {
