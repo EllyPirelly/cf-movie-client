@@ -1,0 +1,24 @@
+// TODO: as soon as colors are fixed, work with primary and secondary colors
+.navbar-container {
+  background-color: #801843;
+
+  & .navbar-brand {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 6px;
+  }
+
+  & .svg-moviepool {
+    height: 2rem;
+    width: 2rem;
+    vertical-align: top;
+  }
+
+  & .navbar-nav {
+    align-items: flex-end;
+  }
+
+  & .nav-link {
+    color: #fff;
+  }
+}

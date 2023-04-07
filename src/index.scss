@@ -1,3 +1,5 @@
+@import '/src/components/navigation-bar/navigation-bar';
+@import '/src/components/movie-card/movie-card';
 // Colors are not finally set yet, as adapting bootstrap colors is still quite confusing atm
 // $primary: #ed6e2d;
 // $primary: #6f1341;
@@ -25,6 +27,11 @@ body {
   min-height: 100%;
 }
 
+// TODO: figure out best way to have consistent background - not cut
+// #root {
+//   // height: 100%;
+//   // height: 100vh;
+// }
 h2,
 h3,
 h4,
@@ -33,22 +40,4 @@ label,
 span,
 .card-title {
   color: #fff;
-}
-
-// TODO: figure out best way to have consistent background - not cut
-// #root {
-//   // height: 100%;
-//   // height: 100vh;
-// }
-.movie-view__card {
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 6px 10px rgba(40, 40, 40, .08), 0 0 6px rgba(40, 40, 40, .05);
-  cursor: pointer;
-  transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
-
-  &:hover {
-    box-shadow: 0 10px 20px rgba(40, 40, 40, .12), 0 4px 8px rgba(40, 40, 40, .06);
-    transform: scale(1.05);
-  }
 }

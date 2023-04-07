@@ -1,3 +1,39 @@
+.navbar-container {
+  background-color: #801843;
+}
+
+.navbar-container .navbar-brand {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.navbar-container .svg-moviepool {
+  height: 2rem;
+  width: 2rem;
+  vertical-align: top;
+}
+
+.navbar-container .navbar-nav {
+  align-items: flex-end;
+}
+
+.navbar-container .nav-link {
+  color: #fff;
+}
+
+.movie-view__card {
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform .3s cubic-bezier(.155, 1.105, .295, 1.12), box-shadow .3s, -webkit-transform .3s cubic-bezier(.155, 1.105, .295, 1.12);
+  box-shadow: 0 6px 10px #28282814, 0 0 6px #2828280d;
+}
+
+.movie-view__card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px #2828281f, 0 4px 8px #2828280f;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -12009,19 +12045,6 @@ body {
 
 h2, .h2, h3, .h3, h4, .h4, p, label, span, .card-title {
   color: #fff;
-}
-
-.movie-view__card {
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 4px;
-  transition: transform .3s cubic-bezier(.155, 1.105, .295, 1.12), box-shadow .3s, -webkit-transform .3s cubic-bezier(.155, 1.105, .295, 1.12);
-  box-shadow: 0 6px 10px #28282814, 0 0 6px #2828280d;
-}
-
-.movie-view__card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px #2828281f, 0 4px 8px #2828280f;
 }
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
