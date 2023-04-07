@@ -60,7 +60,7 @@ export const UserUpdate = () => {
 
   return (
     <div xs={12}>
-      <h2>Update your information here - not working:</h2>
+      <h3>Update your information here - not working:</h3>
       <Form onSubmit={handleUpdate}>
         <Form.Group>
           <Form.Label>Username: test - {username}</Form.Label>
