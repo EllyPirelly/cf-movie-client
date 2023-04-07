@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Card } from 'react-bootstrap';
 
 export const UserInfo = () => {
   const [items, setItems] = useState([]);
@@ -15,9 +16,16 @@ export const UserInfo = () => {
   return (
     <>
       <h3>Your registration details:</h3>
-      <h4>display the bare minimum of user info as a start</h4>
-      <div style={{ backgroundColor: 'white', color: 'black' }}>{items.userName}</div>
-      <div style={{ backgroundColor: 'white', color: 'black' }}>{items.email}</div>
+      <Card className='bg-info'>
+        <Card.Body>
+          <Card.Title>Current User Info</Card.Title>
+          <Card.Text>
+            <span>Your name: {items.userName}</span>
+            <br />
+            <span>Your email: {items.email}</span>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </>
   )
 }
