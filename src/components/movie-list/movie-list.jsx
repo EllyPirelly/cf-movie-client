@@ -7,22 +7,15 @@ export const MovieList = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    if (!token) {
-      return;
+  fetch('https://movie-pool.onrender.com/movies', {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
-    fetch('https://movie-pool.onrender.com/movies', {
-      headers: {
-        // Bearer Authorization enables authenticated API requests
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((response) => response.json())
-      .then((movies) => {
-        setMovies(movies);
-      });
-    // dependency array; ensures fetch is called every time `token` changes
-  }, [token]);
+  })
+    .then((response) => response.json())
+    .then((movies) => {
+      setMovies(movies);
+    });
 
   return (
     <Row className='justify-content-md-center'>
@@ -30,7 +23,7 @@ export const MovieList = () => {
       {movies.map((movie) => (
         <Col attribute='3' className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
           <MovieCard movie={movie} />
-          <Button variant='secondary'>Remove from List</Button>
+          <Button variant='danger'>Remove from List</Button>
         </Col>
       ))}
     </Row>

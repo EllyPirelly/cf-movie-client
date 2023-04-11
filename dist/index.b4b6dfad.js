@@ -47073,19 +47073,17 @@ parcelHelpers.export(exports, "UserUpdate", ()=>UserUpdate);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactBootstrap = require("react-bootstrap");
+var _userDelete = require("./user-delete");
 var _s = $RefreshSig$();
 const UserUpdate = ()=>{
     _s();
-    var _s1 = $RefreshSig$();
-    const storedToken = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
+    const storedToken = localStorage.getItem("token");
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)("");
     const [birthday, setBirthday] = (0, _react.useState)("");
     const handleUpdate = (event)=>{
-        _s1();
         event.preventDefault();
         const userdata = {
             userName: username,
@@ -47093,37 +47091,28 @@ const UserUpdate = ()=>{
             email: email,
             birthDate: birthday
         };
-        (0, _react.useEffect)(()=>{
-            if (!token) return;
-            // http://localhost:1234/users/testuser31
-            // grabbed remote URL needs to be something like this:
-            // hhttps://movie-pool.onrender.com/users/{userName}
-            fetch(`https://movie-pool.onrender.com/users/testuser31`, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userdata)
-            }).then((response)=>{
-                if (response.ok) {
-                    alert("ok");
-                    response.json();
-                } else {
-                    alert("failed");
-                    return false;
-                }
-            }).then((user)=>{
-                if (user) {
-                    alert("success");
-                    updateUser(user);
-                }
-            }).catch((error)=>{
-                alert(error);
-            });
+        fetch(`https://movie-pool.onrender.com/users/testuser31`, {
+            // fetch(`https://movie-pool.onrender.com/users/{userName}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${storedToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userdata)
+        }).then((response)=>{
+            if (response.ok) {
+                alert("ok");
+                response.json();
+            } else {
+                alert("failed");
+                return false;
+            }
+        }).then((user)=>{
+            if (user) updateUser(user);
+        }).catch((error)=>{
+            alert(error);
         });
     };
-    _s1(handleUpdate, "OD7bBpZva5O2jO+Puf00hKivP7c=");
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         xs: 12,
         children: [
@@ -47131,7 +47120,7 @@ const UserUpdate = ()=>{
                 children: "Update your information here - not working:"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 63,
+                lineNumber: 55,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -47140,13 +47129,10 @@ const UserUpdate = ()=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                children: [
-                                    "Username: test - ",
-                                    username
-                                ]
-                            }, void 0, true, {
+                                children: "Username: "
+                            }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 66,
+                                lineNumber: 58,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47157,13 +47143,13 @@ const UserUpdate = ()=>{
                                 minLength: "5"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 67,
+                                lineNumber: 59,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 65,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47172,7 +47158,7 @@ const UserUpdate = ()=>{
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 77,
+                                lineNumber: 69,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47182,13 +47168,13 @@ const UserUpdate = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 78,
+                                lineNumber: 70,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 76,
+                        lineNumber: 68,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47197,7 +47183,7 @@ const UserUpdate = ()=>{
                                 children: "Email:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 87,
+                                lineNumber: 79,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47207,13 +47193,13 @@ const UserUpdate = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 88,
+                                lineNumber: 80,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 86,
+                        lineNumber: 78,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47222,7 +47208,7 @@ const UserUpdate = ()=>{
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 97,
+                                lineNumber: 89,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47232,39 +47218,52 @@ const UserUpdate = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 98,
+                                lineNumber: 90,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 96,
+                        lineNumber: 88,
                         columnNumber: 9
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        className: "mt-3 mb-3",
-                        type: "submit",
-                        variant: "primary",
-                        children: "Update User Info"
-                    }, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                className: "mt-3 mb-3",
+                                type: "submit",
+                                variant: "primary",
+                                children: "Update User Info"
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/user-update.jsx",
+                                lineNumber: 99,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userDelete.UserDelete), {}, void 0, false, {
+                                fileName: "src/components/profile-view/user-update.jsx",
+                                lineNumber: 100,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 106,
+                        lineNumber: 98,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 64,
+                lineNumber: 56,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/user-update.jsx",
-        lineNumber: 62,
+        lineNumber: 54,
         columnNumber: 5
     }, undefined);
 };
-_s(UserUpdate, "+cw4r3c4U3xrkuG5q1pjB1O6rB8=");
+_s(UserUpdate, "tdA1KK8yaZidqYo0wscqshHt/KE=");
 _c = UserUpdate;
 var _c;
 $RefreshReg$(_c, "UserUpdate");
@@ -47274,7 +47273,59 @@ $RefreshReg$(_c, "UserUpdate");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react-bootstrap":"3AD9A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5kraV":[function(require,module,exports) {
+},{"react-bootstrap":"3AD9A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./user-delete":"j19ow"}],"j19ow":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$09d0 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$09d0.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "UserDelete", ()=>UserDelete);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _reactBootstrap = require("react-bootstrap");
+const UserDelete = ()=>{
+    const storedToken = localStorage.getItem("token");
+    const handleDelete = (event)=>{
+        event.preventDefault();
+        fetch(`https://movie-pool.onrender.com/users/testuser31`, {
+            // fetch(`https://movie-pool.onrender.com/users/{userName}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${storedToken}`,
+                "Content-Type": "application/json"
+            }
+        }).then((response)=>{
+            if (response.ok) {
+                alert(`You successfully deleted the account with the username of '${userName}'.`);
+                localStorage.clear();
+            } else if (response.status === 400) alert("User was not found.");
+            else if (response.status === 401) alert("Access denied.");
+        }).catch((error)=>{
+            console.log("Error: " + error);
+        });
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+        onClick: handleDelete,
+        variant: "danger",
+        children: "Delete your account"
+    }, void 0, false, {
+        fileName: "src/components/profile-view/user-delete.jsx",
+        lineNumber: 33,
+        columnNumber: 5
+    }, undefined);
+};
+_c = UserDelete;
+var _c;
+$RefreshReg$(_c, "UserDelete");
+
+  $parcel$ReactRefreshHelpers$09d0.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap":"3AD9A"}],"5kraV":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$17ad = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47294,20 +47345,13 @@ const MovieList = ()=>{
     const storedToken = localStorage.getItem("token");
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
-    (0, _react.useEffect)(()=>{
-        if (!token) return;
-        fetch("https://movie-pool.onrender.com/movies", {
-            headers: {
-                // Bearer Authorization enables authenticated API requests
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>response.json()).then((movies)=>{
-            setMovies(movies);
-        });
-    // dependency array; ensures fetch is called every time `token` changes
-    }, [
-        token
-    ]);
+    fetch("https://movie-pool.onrender.com/movies", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then((response)=>response.json()).then((movies)=>{
+        setMovies(movies);
+    });
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
         className: "justify-content-md-center",
         children: [
@@ -47315,7 +47359,7 @@ const MovieList = ()=>{
                 children: "Favorite Movies - render all for now"
             }, void 0, false, {
                 fileName: "src/components/movie-list/movie-list.jsx",
-                lineNumber: 29,
+                lineNumber: 22,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -47329,31 +47373,31 @@ const MovieList = ()=>{
                             movie: movie
                         }, void 0, false, {
                             fileName: "src/components/movie-list/movie-list.jsx",
-                            lineNumber: 32,
+                            lineNumber: 25,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            variant: "secondary",
+                            variant: "danger",
                             children: "Remove from List"
                         }, void 0, false, {
                             fileName: "src/components/movie-list/movie-list.jsx",
-                            lineNumber: 33,
+                            lineNumber: 26,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, movie._id, true, {
                     fileName: "src/components/movie-list/movie-list.jsx",
-                    lineNumber: 31,
+                    lineNumber: 24,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/movie-list/movie-list.jsx",
-        lineNumber: 28,
+        lineNumber: 21,
         columnNumber: 5
     }, undefined);
 };
-_s(MovieList, "RkXTQUIhsa6kpIiRVxNToz9Indc=");
+_s(MovieList, "h5RsYgP8AHSdyoE2cF89AH9j8sw=");
 _c = MovieList;
 var _c;
 $RefreshReg$(_c, "MovieList");

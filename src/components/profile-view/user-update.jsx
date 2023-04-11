@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { UserDelete } from './user-delete';
 
 export const UserUpdate = () => {
-  const storedToken = localStorage.getItem('token');
   const storedUser = JSON.parse(localStorage.getItem('user'));
-  const [token, setToken] = useState(storedToken ? storedToken : null);
+  const storedToken = localStorage.getItem('token');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -20,42 +20,34 @@ export const UserUpdate = () => {
       birthDate: birthday
     };
 
-    useEffect(() => {
-      if (!token) {
-        return;
-      }
-
-      // http://localhost:1234/users/testuser31
-      // grabbed remote URL needs to be something like this:
-      // hhttps://movie-pool.onrender.com/users/{userName}
-
-      fetch(`https://movie-pool.onrender.com/users/testuser31`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userdata)
-      })
-        .then((response) => {
-          if (response.ok) {
-            alert('ok');
-            response.json();
-          } else {
-            alert('failed');
-            return false;
-          }
-        })
-        .then(user => {
-          if (user) {
-            alert('success')
-            updateUser(user)
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
+    fetch(`https://movie-pool.onrender.com/users/testuser31`, {
+      // fetch(`https://movie-pool.onrender.com/users/{userName}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${storedToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userdata)
     })
+      .then((response) => {
+        if (response.ok) {
+          alert('ok');
+          response.json();
+        } else {
+          alert('failed');
+          return false;
+        }
+      })
+      .then(user => {
+        if (user) {
+          updateUser(user);
+          // what's with local storage, how best to handle update of e.g. username and email (see user info)
+          // localStorage.setItem('user'); ??
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
@@ -63,7 +55,7 @@ export const UserUpdate = () => {
       <h3>Update your information here - not working:</h3>
       <Form onSubmit={handleUpdate}>
         <Form.Group>
-          <Form.Label>Username: test - {username}</Form.Label>
+          <Form.Label>Username: </Form.Label>
           <Form.Control
             type='text'
             value={username}
@@ -103,7 +95,10 @@ export const UserUpdate = () => {
           />
         </Form.Group>
 
-        <Button className='mt-3 mb-3' type='submit' variant='primary'>Update User Info</Button>
+        <div>
+          <Button className='mt-3 mb-3' type='submit' variant='primary'>Update User Info</Button>
+          <UserDelete />
+        </div>
       </Form>
     </div>
   );
