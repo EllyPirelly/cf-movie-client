@@ -24,9 +24,14 @@
 }
 
 .navbar-container .navbar-brand {
+  color: #000;
   background-color: #fff;
   border-radius: 8px;
   padding: 6px;
+}
+
+.navbar-container .navbar-brand:hover, .navbar-container .navbar-brand:focus {
+  color: initial;
 }
 
 .navbar-container .svg-moviepool {

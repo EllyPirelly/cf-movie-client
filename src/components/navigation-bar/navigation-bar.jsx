@@ -10,12 +10,11 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
 
   return (
     <div className='navbar-container fixed-top'>
-      {/* <div className='navbar-container'> */}
-
-      <Navbar expand='lg'>
+      <Navbar expand='lg' bg='info' variant='dark'>
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            <img src={imageUrl} className="svg-moviepool" alt='Movie Pool' />
+            <img src={imageUrl} className="svg-moviepool" alt='Movie Pool' />{' '}
+            MoviePool
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
