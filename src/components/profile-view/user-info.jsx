@@ -18,14 +18,4 @@ export const UserInfo = ({ user }) => {
       </Card>
     </>
   )
-  // const [items, setItems] = useState([]);
-
-  // useEffect(() => {
-  //   const items = JSON.parse(localStorage.getItem('user'));
-  //   // console.log(items.userName);
-  //   // console.log(items.email);
-  //   if (items) {
-  //     setItems(items);
-  //   }
-  // }, []);
 }

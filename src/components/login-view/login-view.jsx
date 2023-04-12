@@ -37,7 +37,7 @@ export const LoginView = ({ onLoggedIn }) => {
           // pass `user` and `token` back to `MainView` so they can be used in subsequent API requests
           onLoggedIn(data.user, data.token);
         } else {
-          alert('No such user.');
+          alert('No such user, please check your credentials or sign-up.');
         }
       })
       .catch((e) => {

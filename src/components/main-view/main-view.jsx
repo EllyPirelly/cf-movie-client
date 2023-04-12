@@ -88,7 +88,7 @@ export const MainView = () => {
                 ) : (
                   <Col xs={12}>
                     {/* since user state is defined in MainView here, provide the state and the function that updates it to the ProfileView as props */}
-                    <ProfileView setUser={setUser} user={user} />
+                    <ProfileView user={user} setUser={setUser} />
                   </Col>
                 )}
               </>

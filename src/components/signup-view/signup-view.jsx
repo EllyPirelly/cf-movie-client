@@ -29,9 +29,10 @@ export const SignupView = () => {
       body: JSON.stringify(data)
     }).then((response) => {
       if (response.ok) {
-        alert('Signup successful.');
+        alert('You\'ve successfully signed up.');
         // reloads after successful alert has been shown
         window.location.reload();
+        // go to '/' ?? or '/login' ??
       } else {
         alert('Signup failed.');
       }
