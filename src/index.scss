@@ -1,8 +1,6 @@
-@import '/src/components/navigation-bar/navigation-bar';
+@import '/src/components/main-view/main-view.scss';
 @import '/src/components/movie-card/movie-card';
-// Colors are not finally set yet, as adapting bootstrap colors is still quite confusing atm
-// $primary: #ed6e2d;
-// $primary: #6f1341;
+@import '/src/components/navigation-bar/navigation-bar';
 $primary: #ed6e2d;
 $secondary: #d4d4d4;
 $info: #6f1341;
@@ -27,10 +25,9 @@ body {
   min-height: 100%;
 }
 
-// TODO: figure out best way to have consistent background - not cut
 #root {
-  // height: 100%;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 h2,

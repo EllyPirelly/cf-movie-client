@@ -1,4 +1,3 @@
-// import React from 'react';
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
@@ -40,8 +39,8 @@ export const LoginView = ({ onLoggedIn }) => {
           alert('No such user, please check your credentials or sign-up.');
         }
       })
-      .catch((e) => {
-        alert('Something went wrong.');
+      .catch((error) => {
+        alert('Something went wrong: ' + error);
       });
   };
 

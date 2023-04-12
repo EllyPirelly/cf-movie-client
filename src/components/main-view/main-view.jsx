@@ -43,7 +43,7 @@ export const MainView = () => {
         }}
       />
 
-      <Row className='justify-content-md-center mt-4'>
+      <Row className='main-view__container justify-content-md-center'>
         <Routes>
           <Route
             path='/signup'

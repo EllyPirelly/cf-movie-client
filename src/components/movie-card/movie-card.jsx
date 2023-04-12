@@ -37,27 +37,13 @@ export const MovieCard = ({ movie }) => {
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director.directorName}</Card.Text>
-        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-          <Button variant='secondary' className='w-100'>See More</Button>
-        </Link>
       </Card.Body>
-      <Button onClick={addFavorite} variant='secondary' className='w-100'>Add to favorites</Button>
+      <Link to={`/movies/${encodeURIComponent(movie._id)}`} className='ms-3 me-3'>
+        <Button variant='secondary' className='w-100'>See More</Button>
+      </Link>
+      <Button onClick={addFavorite} variant='success' className='m-3'>Add to favorites</Button>
     </Card>
   );
-
-  // alternative with whole card linked - TODO: maybe use
-  // return (
-  //   <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-  //     <Card className='h-100 text-center bg-info'>
-  //       <Card.Img className='img-fluid h-100 w-auto' variant="top" src={movie.imagePath} />
-  //       <Card.Body>
-  //         <Card.Title>{movie.title}</Card.Title>
-  //         <Card.Text>{movie.director.directorName}</Card.Text>
-  //         <Button variant='secondary' className='w-100'>See More</Button>
-  //       </Card.Body>
-  //     </Card>
-  //   </Link>
-  // );
 };
 
 MovieCard.propTypes = {

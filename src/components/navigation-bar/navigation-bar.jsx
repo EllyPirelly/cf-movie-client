@@ -9,8 +9,8 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
   );
 
   return (
-    // <div className='navbar-container fixed-top'>
-    <div className='navbar-container'>
+    <div className='navbar-container fixed-top'>
+      {/* <div className='navbar-container'> */}
 
       <Navbar expand='lg'>
         <Container>
