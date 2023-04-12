@@ -1,18 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 
-export const UserInfo = () => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('user'));
-    console.log(items.userName);
-    console.log(items.email);
-    if (items) {
-      setItems(items);
-    }
-  }, []);
-
+// using props makes the component re-render once updated
+// `user` state is coming from MainView via prop
+export const UserInfo = ({ user }) => {
   return (
     <>
       <h3>Your registration details:</h3>
@@ -20,12 +10,22 @@ export const UserInfo = () => {
         <Card.Body>
           <Card.Title>Current User Info</Card.Title>
           <Card.Text>
-            <span>Your name: {items.userName}</span>
+            <span>Your name: {user.userName}</span>
             <br />
-            <span>Your email: {items.email}</span>
+            <span>Your email: {user.email}</span>
           </Card.Text>
         </Card.Body>
       </Card>
     </>
   )
+  // const [items, setItems] = useState([]);
+
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem('user'));
+  //   // console.log(items.userName);
+  //   // console.log(items.email);
+  //   if (items) {
+  //     setItems(items);
+  //   }
+  // }, []);
 }

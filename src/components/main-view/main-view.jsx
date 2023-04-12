@@ -87,7 +87,8 @@ export const MainView = () => {
                   <Navigate to='/login' replace />
                 ) : (
                   <Col xs={12}>
-                    <ProfileView />
+                    {/* since user state is defined in MainView here, provide the state and the function that updates it to the ProfileView as props */}
+                    <ProfileView setUser={setUser} user={user} />
                   </Col>
                 )}
               </>

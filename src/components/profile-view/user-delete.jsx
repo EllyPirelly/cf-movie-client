@@ -1,13 +1,13 @@
 import { Button } from 'react-bootstrap';
 
 export const UserDelete = () => {
+  const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
 
   const handleDelete = (event) => {
     event.preventDefault();
 
-    fetch(`https://movie-pool.onrender.com/users/testuser31`, {
-      // fetch(`https://movie-pool.onrender.com/users/{userName}`, {
+    fetch(`https://movie-pool.onrender.com/users/${storedUser.userName}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${storedToken}`,

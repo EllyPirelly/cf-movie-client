@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { UserDelete } from './user-delete';
 
-export const UserUpdate = () => {
+// `setUser` function is coming from MainView via prop
+export const UserUpdate = ({ setUser }) => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
   const [username, setUsername] = useState('');
@@ -20,8 +21,9 @@ export const UserUpdate = () => {
       birthDate: birthday
     };
 
-    fetch(`https://movie-pool.onrender.com/users/testuser31`, {
-      // fetch(`https://movie-pool.onrender.com/users/{userName}`, {
+    // template literal
+    // userName - username
+    fetch(`https://movie-pool.onrender.com/users/${storedUser.userName}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${storedToken}`,
@@ -30,20 +32,17 @@ export const UserUpdate = () => {
       body: JSON.stringify(userdata)
     })
       .then((response) => {
-        if (response.ok) {
-          alert('ok');
-          response.json();
-        } else {
-          alert('failed');
-          return false;
-        }
+        return response.json();
       })
       .then(user => {
+        console.log(user);
         if (user) {
-          updateUser(user);
-          // what's with local storage, how best to handle update of e.g. username and email (see user info)
-          // localStorage.setItem('user'); ??
+          // set localStorage user to override the existing one
+          delete user.password
+          localStorage.setItem('user', JSON.stringify(user));
+          setUser(user);
         }
+        alert('You\'ve successfully updated your user information.');
       })
       .catch((error) => {
         alert(error);
@@ -52,7 +51,7 @@ export const UserUpdate = () => {
 
   return (
     <div xs={12}>
-      <h3>Update your information here - not working:</h3>
+      <h3>Update your information here:</h3>
       <Form onSubmit={handleUpdate}>
         <Form.Group>
           <Form.Label>Username: </Form.Label>
