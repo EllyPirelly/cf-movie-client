@@ -28,10 +28,11 @@ body {
 }
 
 // TODO: figure out best way to have consistent background - not cut
-// #root {
-//   // height: 100%;
-//   // height: 100vh;
-// }
+#root {
+  // height: 100%;
+  height: 100vh;
+}
+
 h2,
 h3,
 h4,

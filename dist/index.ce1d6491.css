@@ -12043,6 +12043,10 @@ body {
   font-size: 16px;
 }
 
+#root {
+  height: 100vh;
+}
+
 h2, .h2, h3, .h3, h4, .h4, p, label, span, .card-title {
   color: #fff;
 }

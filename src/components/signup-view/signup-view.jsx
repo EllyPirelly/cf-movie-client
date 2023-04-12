@@ -27,16 +27,17 @@ export const SignupView = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    }).then((response) => {
-      if (response.ok) {
-        alert('You\'ve successfully signed up.');
-        // reloads after successful alert has been shown
-        window.location.reload();
-        // go to '/' ?? or '/login' ??
-      } else {
-        alert('Signup failed.');
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('You\'ve successfully signed up.');
+          // reloads after successful alert has been shown
+          window.location.reload();
+          // go to '/' ?? or '/login' ??
+        } else {
+          alert('Signup failed.');
+        }
+      });
   };
 
   return (

@@ -1,6 +1,6 @@
 import { UserInfo } from './user-info';
 import { UserUpdate } from './user-update';
-import { MovieList } from '../movie-list/movie-list';
+import { UserMovielist } from './user-movie-list';
 
 // as `user` state and `setUser` function is defined in MainView
 // `user` can be used to display the user, also see UserInfo
@@ -12,7 +12,7 @@ export const ProfileView = ({ setUser, user }) => {
       <h2>User Profile</h2>
       <UserInfo user={user} />
       <br />
-      {/* <MovieList /> */}
+      <UserMovielist />
       <br />
       <UserUpdate setUser={setUser} />
     </>

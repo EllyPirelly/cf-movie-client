@@ -2,11 +2,38 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 
-// import './movie-view.scss';
-
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ movies, user }) => {
   const { movieId } = useParams();
   const movie = movies.find((movie) => movie._id === movieId);
+  const [isFavorite, setIsFavorite] = useState(user.favoriteMovies.includes(movie._id));
+
+  let favoriteMovies = movies.filter(movie => user.favoriteMovies.includes(movie._id));
+
+  const addFavorite = (event) => {
+    event.preventDefault();
+
+    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movieId}`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Successfully added.');
+          return response.json();
+        } else {
+          alert("Fail");
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert("Success");
+          setIsFavorite(true);
+        }
+      })
+      .catch((error) => {
+        alert('Error message: ' + error);
+      });
+  }
 
   return (
     <Container>
@@ -18,8 +45,7 @@ export const MovieView = ({ movies }) => {
           <Link to={`/`}>
             <Button variant='secondary' className="w-100">Back to movies</Button>
           </Link>
-          {/* TODO: if not favorite, add */}
-          <Button className='w-100 mt-4'>Add to favorites</Button>
+          <Button onClick={addFavorite} className='w-100 mt-4'>Add to favorites</Button>
           {/* TODO: if already favorite, message that is */}
           {/* <div>This movie is already on your Favorites list.</div> */}
         </Col>

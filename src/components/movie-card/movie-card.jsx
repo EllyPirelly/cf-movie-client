@@ -4,6 +4,33 @@ import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const MovieCard = ({ movie }) => {
+
+  const addFavorite = (event) => {
+    event.preventDefault();
+
+    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movieId}`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Successfully added.');
+          return response.json();
+        } else {
+          alert("Fail");
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert("Success");
+          setIsFavorite(true);
+        }
+      })
+      .catch((error) => {
+        alert('Error message: ' + error);
+      });
+  }
+
   return (
     <Card className='movie-view__card h-100 text-center bg-info'>
       <Card.Img className='img-fluid h-100 w-auto' variant="top" src={movie.imagePath} />
@@ -14,6 +41,7 @@ export const MovieCard = ({ movie }) => {
           <Button variant='secondary' className='w-100'>See More</Button>
         </Link>
       </Card.Body>
+      <Button onClick={addFavorite} variant='secondary' className='w-100'>Add to favorites</Button>
     </Card>
   );
 
