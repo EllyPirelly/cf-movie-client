@@ -12,7 +12,7 @@ export const ProfileView = ({ user, updateUserInfo }) => {
       <h2>User Profile</h2>
       <UserInfo user={user} />
       <br />
-      <UserMovielist />
+      {/* <UserMovielist updateUserInfo={updateUserInfo} /> */}
       <br />
       <UserUpdate updateUserInfo={updateUserInfo} />
     </>

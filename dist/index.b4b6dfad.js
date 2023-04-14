@@ -46890,11 +46890,6 @@ const ProfileView = ({ user , updateUserInfo  })=>{
                 lineNumber: 14,
                 columnNumber: 7
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userMovieList.UserMovielist), {}, void 0, false, {
-                fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 15,
-                columnNumber: 7
-            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
                 lineNumber: 16,
@@ -47283,22 +47278,41 @@ parcelHelpers.export(exports, "UserMovielist", ()=>UserMovielist);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _movieCard = require("../movie-card/movie-card");
+var _s = $RefreshSig$();
 const UserMovielist = ({ updateUserInfo  })=>{
+    _s();
+    const [isFavorite, setIsFavorite] = useState("");
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
         className: "justify-content-md-center",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-            children: "Favorite Movies"
-        }, void 0, false, {
-            fileName: "src/components/profile-view/user-movie-list.jsx",
-            lineNumber: 8,
-            columnNumber: 7
-        }, undefined)
-    }, void 0, false, {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: "Favorite Movies"
+            }, void 0, false, {
+                fileName: "src/components/profile-view/user-movie-list.jsx",
+                lineNumber: 10,
+                columnNumber: 7
+            }, undefined),
+            isFavorite ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                updateUserInfo: updateUserInfo
+            }, void 0, false, {
+                fileName: "src/components/profile-view/user-movie-list.jsx",
+                lineNumber: 12,
+                columnNumber: 11
+            }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: "list is empty"
+            }, void 0, false, {
+                fileName: "src/components/profile-view/user-movie-list.jsx",
+                lineNumber: 13,
+                columnNumber: 11
+            }, undefined)
+        ]
+    }, void 0, true, {
         fileName: "src/components/profile-view/user-movie-list.jsx",
-        lineNumber: 7,
+        lineNumber: 9,
         columnNumber: 5
     }, undefined);
 };
+_s(UserMovielist, "t3zfaWniZG8Aewie/ZY58D9whIU=");
 _c = UserMovielist;
 var _c;
 $RefreshReg$(_c, "UserMovielist");
