@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -7,6 +9,8 @@ export const SignupView = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
+
+  const navigate = useNavigate();
 
   // makes an API call to the signup URL passing the form data
   const handleSubmit = (event) => {
@@ -29,10 +33,8 @@ export const SignupView = () => {
     })
       .then((response) => {
         if (response.ok) {
-          alert('You\'ve successfully signed up.');
-          // reloads after successful alert has been shown
-          window.location.reload();
-          // go to '/' ?? or '/login' ??
+          alert('You\'ve successfully signed up, please log in.');
+          navigate('/login');
         } else {
           alert('Signup failed.');
         }
