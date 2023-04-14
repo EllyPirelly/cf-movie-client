@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+// takes the props unser, onLoggedIn, see MainView
 export const NavigationBar = ({ user, onLoggedOut }) => {
 
   const imageUrl = new URL(
@@ -13,7 +14,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
       <Navbar expand='lg' bg='info' variant='dark'>
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            <img src={imageUrl} className="svg-moviepool" alt='Movie Pool' />{' '}
+            <img src={imageUrl} className='svg-moviepool' alt='Movie Pool' />{' '}
             MoviePool
           </Navbar.Brand>
 

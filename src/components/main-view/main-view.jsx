@@ -9,6 +9,7 @@ import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { Col, Row } from 'react-bootstrap';
 
 export const MainView = () => {
+
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
   const [user, setUser] = useState(storedUser ? storedUser : null);
@@ -18,7 +19,8 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) {
       return;
-    }
+    };
+
     fetch('https://movie-pool.onrender.com/movies', {
       headers: {
         // Bearer Authorization enables authenticated API requests
@@ -29,8 +31,16 @@ export const MainView = () => {
       .then((movies) => {
         setMovies(movies);
       });
-    // dependency array; ensures fetch is called every time `token` changes
+    // dependency array; ensures fetch is called every time token changes
   }, [token]);
+
+  // as user info will be updated by multiple components it's best to set it in MainView and pass it from here to any component that changes the user info
+  const updateUserInfo = (user) => {
+    delete user.password;
+    // set localStorage user to overwrite the existing one
+    localStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
+  };
 
   return (
     <BrowserRouter>
@@ -87,8 +97,8 @@ export const MainView = () => {
                   <Navigate to='/login' replace />
                 ) : (
                   <Col xs={12}>
-                    {/* since user state is defined in MainView here, provide the state and the function that updates it to the ProfileView as props */}
-                    <ProfileView user={user} setUser={setUser} />
+                    {/* provide user (and with that, details about the user) and updateUserInfo (to update user info) to ProfileView as props */}
+                    <ProfileView user={user} updateUserInfo={updateUserInfo} />
                   </Col>
                 )}
               </>
@@ -102,11 +112,12 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to='/login' replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty.</Col>
-                  // <div>The list is empty.</div>
+                  <Col md={12}>The list is empty.</Col>
                 ) : (
                   <Col md={12}>
-                    <MovieView movies={movies} />
+                    {/* provide user (and with that, details about the user) and updateUserInfo (to update user info) to other components as props */}
+                    <MovieView movies={movies} user={user} updateUserInfo={updateUserInfo} />
+                    {/* <MovieView movies={movies} /> */}
                   </Col>
                 )}
               </>
@@ -120,13 +131,13 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to='/login' replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty.</Col>
-                  // <div>The list is empty.</div>
+                  <Col md={12}>The list is empty.</Col>
                 ) : (
                   <>
                     {movies.map((movie) => (
                       <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
-                        <MovieCard movie={movie} />
+                        {/* provide user (and with that, details about the user) and updateUserInfo (to update user info) to other components as props */}
+                        <MovieCard movie={movie} user={user} updateUserInfo={updateUserInfo} />
                       </Col>
                     ))}
                   </>

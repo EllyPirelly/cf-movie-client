@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { UserDelete } from './user-delete';
 
-// `setUser` function is coming from MainView via prop
-export const UserUpdate = ({ setUser }) => {
+// updateUserInfo function is coming from MainView via prop
+export const UserUpdate = ({ updateUserInfo }) => {
+
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
   const [username, setUsername] = useState('');
@@ -21,8 +22,6 @@ export const UserUpdate = ({ setUser }) => {
       birthDate: birthday
     };
 
-    // template literal
-    // userName - username
     fetch(`https://movie-pool.onrender.com/users/${storedUser.userName}`, {
       method: 'PUT',
       headers: {
@@ -35,12 +34,9 @@ export const UserUpdate = ({ setUser }) => {
         return response.json();
       })
       .then(user => {
-        console.log(user);
         if (user) {
-          // set localStorage user to override the existing one
-          delete user.password
-          localStorage.setItem('user', JSON.stringify(user));
-          setUser(user);
+          // update user info
+          updateUserInfo(user);
         }
         alert('You\'ve successfully updated your user information.');
       })
@@ -101,4 +97,4 @@ export const UserUpdate = ({ setUser }) => {
       </Form>
     </div>
   );
-}
+};

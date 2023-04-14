@@ -1,35 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
-export const MovieCard = ({ movie }) => {
+// user prop holds user info - including fav movies!
+export const MovieCard = ({ movie, user, updateUserInfo }) => {
 
-  const addFavorite = (event) => {
-    event.preventDefault();
+  const [isFavorite, setIsFavorite] = useState(false);
 
-    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movieId}`, {
-      method: "POST",
+  useEffect(() => {
+    if (user.favoriteMovies && movie._id) {
+      setIsFavorite(user.favoriteMovies.includes(movie._id))
+    }
+  }, [movie]);
+
+  const addFavorite = () => {
+
+    const token = localStorage.getItem('token');
+
+    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movie._id}`, {
+      method: 'POST',
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
         if (response.ok) {
-          alert('Successfully added.');
           return response.json();
         } else {
-          alert("Fail");
+          alert('Fail');
         }
       })
       .then((user) => {
         if (user) {
-          alert("Success");
+          alert('Successfully added.');
           setIsFavorite(true);
+          updateUserInfo(user);
         }
       })
       .catch((error) => {
         alert('Error message: ' + error);
       });
-  }
+  };
+
+  const deleteFavorite = () => {
+
+    const token = localStorage.getItem('token');
+
+    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movie._id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert('Fail');
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert('Successfully deleted.');
+          setIsFavorite(false);
+          updateUserInfo(user);
+        }
+      })
+      .catch((error) => {
+        alert('Error message: ' + error);
+      });
+  };
 
   return (
     <Card className='movie-view__card h-100 text-center bg-info'>
@@ -38,10 +75,16 @@ export const MovieCard = ({ movie }) => {
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director.directorName}</Card.Text>
       </Card.Body>
+
       <Link to={`/movies/${encodeURIComponent(movie._id)}`} className='ms-3 me-3'>
-        <Button variant='secondary' className='w-100'>See More</Button>
+        <Button variant='secondary' className='w-100'>See more</Button>
       </Link>
-      <Button onClick={addFavorite} variant='success' className='m-3'>Add to favorites</Button>
+
+      {/* toggle button based on whether the movie is listed in the user's favorites or not */}
+      {isFavorite
+        ? (<Button onClick={deleteFavorite} variant='warning' className='m-3'>Remove from favorites</Button>)
+        : (<Button onClick={addFavorite} variant='success' className='m-3'>Add to favorites</Button>)
+      }
     </Card>
   );
 };

@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { Button, Form } from 'react-bootstrap';
 
 export const SignupView = () => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -13,6 +12,7 @@ export const SignupView = () => {
   const navigate = useNavigate();
 
   // makes an API call to the signup URL passing the form data
+  // callback tells the login API to validate username, password, email, birthday
   const handleSubmit = (event) => {
     // prevents default reloading of the entire page
     event.preventDefault();

@@ -1,6 +1,7 @@
 import { Button } from 'react-bootstrap';
 
 export const UserDelete = () => {
+
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const storedToken = localStorage.getItem('token');
 
@@ -32,9 +33,9 @@ export const UserDelete = () => {
         .catch((error) => {
           console.log('Error: ' + error);
         })
-  }
+  };
 
   return (
     <Button onClick={handleDelete} variant='danger'>Delete your account</Button>
   )
-}
+};

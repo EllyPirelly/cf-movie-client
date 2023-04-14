@@ -1,8 +1,9 @@
 import { Card } from 'react-bootstrap';
 
 // using props makes the component re-render once updated
-// `user` state is coming from MainView via prop
+// user state is coming from MainView via prop
 export const UserInfo = ({ user }) => {
+
   return (
     <>
       <h3>Your registration details:</h3>
@@ -18,4 +19,4 @@ export const UserInfo = ({ user }) => {
       </Card>
     </>
   )
-}
+};

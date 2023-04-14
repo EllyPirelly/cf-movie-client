@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-// takes the prop `onLoggedIn`
+// takes the prop onLoggedIn, see MainView
 export const LoginView = ({ onLoggedIn }) => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // makes an API call to the login URL passing the form data
   // callback tells the login API to validate username and password
   const handleSubmit = (event) => {
     // prevents default reloading of the entire page
@@ -26,14 +28,14 @@ export const LoginView = ({ onLoggedIn }) => {
       // transforms response to JSON object
       .then((response) => response.json())
       .then((data) => {
-        console.log('Login response: ', data);
+        // console.log('Login response: ', data);
         if (data.user) {
-          // localStorage to persist `user` and `token` data
+          // localStorage to persist user and token data
           // user will stay authenticated between page loads
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('token', data.token);
-          // call prop `onLoggedIn`
-          // pass `user` and `token` back to `MainView` so they can be used in subsequent API requests
+          // call prop onLoggedIn
+          // pass user and token back to MainView so they can be used in subsequent API requests
           onLoggedIn(data.user, data.token);
         } else {
           alert('No such user, please check your credentials or sign-up.');
@@ -69,7 +71,7 @@ export const LoginView = ({ onLoggedIn }) => {
           />
         </Form.Group>
 
-        <Button className='mt-3 mb-3' type='submit' variant='primary'>Log In</Button>
+        <Button className='mt-3 mb-3' type='submit' variant='primary'>Log in</Button>
       </Form>
     </>
   );
