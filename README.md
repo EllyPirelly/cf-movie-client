@@ -2,7 +2,7 @@
 
 ### What is this about?
 
-This MoviePool App is for movie lovers that want to be able to access information about different movies. It's the client-side to the [RESTful Movie API](https://github.com/EllyPirelly/cf-movie-api) and the R part of the MERN stack.
+This MoviePool Single Page Application is for movie lovers that want to be able to access information about different movies. It's the client-side to the [RESTful Movie API](https://github.com/EllyPirelly/cf-movie-api) and the R part of the MERN stack.
 <br>
 This App has been built as a task for Achievement 3 in [Career Foundry's Full-Stack Web Development Program](https://careerfoundry.com/en/courses/become-a-web-developer/).
 
