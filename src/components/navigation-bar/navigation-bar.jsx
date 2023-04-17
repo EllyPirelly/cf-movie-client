@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-// takes the props unser, onLoggedIn, see MainView
+// takes the props unser, onLoggedIn (also see MainView)
 export const NavigationBar = ({ user, onLoggedOut }) => {
 
   const imageUrl = new URL(

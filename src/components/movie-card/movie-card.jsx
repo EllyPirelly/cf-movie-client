@@ -31,7 +31,7 @@ export const MovieCard = ({ movie, user, updateUserInfo }) => {
       })
       .then((user) => {
         if (user) {
-          alert('Successfully added.');
+          alert(`You successfully added the movie '${movie.title}' to your favorites list.`);
           setIsFavorite(true);
           updateUserInfo(user);
         }
@@ -53,12 +53,12 @@ export const MovieCard = ({ movie, user, updateUserInfo }) => {
         if (response.ok) {
           return response.json();
         } else {
-          alert('Fail');
+          alert('Something went wrong.');
         }
       })
       .then((user) => {
         if (user) {
-          alert('Successfully deleted.');
+          alert(`You deleted the movie '${movie.title}' off of your favorites list.`);
           setIsFavorite(false);
           updateUserInfo(user);
         }
@@ -70,7 +70,7 @@ export const MovieCard = ({ movie, user, updateUserInfo }) => {
 
   return (
     <Card className='movie-view__card h-100 text-center bg-info'>
-      <Card.Img className='img-fluid h-100 w-auto' variant="top" src={movie.imagePath} />
+      <Card.Img className='img-fluid' variant="top" src={movie.imagePath} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director.directorName}</Card.Text>

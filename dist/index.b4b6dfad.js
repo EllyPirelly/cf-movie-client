@@ -27152,7 +27152,7 @@ const MainView = ()=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                className: "main-view__container justify-content-md-center",
+                className: "main-view__container justify-content-md",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27200,7 +27200,8 @@ const MainView = ()=>{
                                     xs: 12,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
                                         user: user,
-                                        updateUserInfo: updateUserInfo
+                                        updateUserInfo: updateUserInfo,
+                                        movies: movies
                                     }, void 0, false, void 0, void 0)
                                 }, void 0, false, void 0, void 0)
                             }, void 0, false)
@@ -27257,7 +27258,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 127,
+                            lineNumber: 126,
                             columnNumber: 11
                         }, undefined)
                     ]
@@ -27356,7 +27357,7 @@ const MovieCard = ({ movie , user , updateUserInfo  })=>{
             else alert("Fail");
         }).then((user)=>{
             if (user) {
-                alert("Successfully added.");
+                alert(`You successfully added the movie '${movie.title}' to your favorites list.`);
                 setIsFavorite(true);
                 updateUserInfo(user);
             }
@@ -27373,10 +27374,10 @@ const MovieCard = ({ movie , user , updateUserInfo  })=>{
             }
         }).then((response)=>{
             if (response.ok) return response.json();
-            else alert("Fail");
+            else alert("Something went wrong.");
         }).then((user)=>{
             if (user) {
-                alert("Successfully deleted.");
+                alert(`You deleted the movie '${movie.title}' off of your favorites list.`);
                 setIsFavorite(false);
                 updateUserInfo(user);
             }
@@ -27388,7 +27389,7 @@ const MovieCard = ({ movie , user , updateUserInfo  })=>{
         className: "movie-view__card h-100 text-center bg-info",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
-                className: "img-fluid h-100 w-auto",
+                className: "img-fluid",
                 variant: "top",
                 src: movie.imagePath
             }, void 0, false, {
@@ -46282,7 +46283,7 @@ const MovieView = ({ user , movies , updateUserInfo  })=>{
             else alert("Fail");
         }).then((user)=>{
             if (user) {
-                alert("Successfully added.");
+                alert(`You successfully added the movie '${movie.title}' to your favorites list.`);
                 setIsFavorite(true);
                 updateUserInfo(user);
             }
@@ -46299,10 +46300,10 @@ const MovieView = ({ user , movies , updateUserInfo  })=>{
             }
         }).then((response)=>{
             if (response.ok) return response.json();
-            else alert("Fail");
+            else alert("Something went wrong.");
         }).then((user)=>{
             if (user) {
-                alert("Successfully deleted.");
+                alert(`You deleted the movie '${movie.title}' off of your favorites list.`);
                 setIsFavorite(false);
                 updateUserInfo(user);
             }
@@ -46721,6 +46722,7 @@ const SignupView = ()=>{
                 onSubmit: handleSubmit,
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupUsername",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Username:"
@@ -46747,6 +46749,7 @@ const SignupView = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupPassword",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Password:"
@@ -46772,6 +46775,7 @@ const SignupView = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupEmail",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Email:"
@@ -46797,6 +46801,7 @@ const SignupView = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupBirthday",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Birthday:"
@@ -46868,38 +46873,47 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _userInfo = require("./user-info");
 var _userUpdate = require("./user-update");
 var _userMovieList = require("./user-movie-list");
-const ProfileView = ({ user , updateUserInfo  })=>{
+const ProfileView = ({ user , updateUserInfo , movies  })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                 children: "User Profile"
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 12,
+                lineNumber: 13,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userInfo.UserInfo), {
                 user: user
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 13,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                fileName: "src/components/profile-view/profile-view.jsx",
                 lineNumber: 14,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 15,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userMovieList.UserMovielist), {
+                updateUserInfo: updateUserInfo,
+                movies: movies,
+                user: user
+            }, void 0, false, {
+                fileName: "src/components/profile-view/profile-view.jsx",
                 lineNumber: 16,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 17,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userUpdate.UserUpdate), {
                 updateUserInfo: updateUserInfo
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 17,
+                lineNumber: 18,
                 columnNumber: 7
             }, undefined)
         ]
@@ -47065,6 +47079,7 @@ const UserUpdate = ({ updateUserInfo  })=>{
                 onSubmit: handleUpdate,
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupUsername",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Username: "
@@ -47091,6 +47106,7 @@ const UserUpdate = ({ updateUserInfo  })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupPassword",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Password:"
@@ -47116,6 +47132,7 @@ const UserUpdate = ({ updateUserInfo  })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupEmail",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Email:"
@@ -47141,6 +47158,7 @@ const UserUpdate = ({ updateUserInfo  })=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formGroupBirthday",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 children: "Birthday:"
@@ -47249,6 +47267,7 @@ const UserDelete = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
         onClick: handleDelete,
         variant: "danger",
+        className: "ms-3",
         children: "Delete your account"
     }, void 0, false, {
         fileName: "src/components/profile-view/user-delete.jsx",
@@ -47278,41 +47297,51 @@ parcelHelpers.export(exports, "UserMovielist", ()=>UserMovielist);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _movieCard = require("../movie-card/movie-card");
-var _s = $RefreshSig$();
-const UserMovielist = ({ updateUserInfo  })=>{
-    _s();
-    const [isFavorite, setIsFavorite] = useState("");
+const UserMovielist = ({ updateUserInfo , movies , user  })=>{
+    // filter movies to only select those on user's fav list
+    const favoriteMovies = movies.filter((movie)=>user.favoriteMovies.includes(movie._id));
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-        className: "justify-content-md-center",
+        className: "justify-content-md",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                 children: "Favorite Movies"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-movie-list.jsx",
-                lineNumber: 10,
+                lineNumber: 11,
                 columnNumber: 7
             }, undefined),
-            isFavorite ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                updateUserInfo: updateUserInfo
+            favoriteMovies.length ? favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                    className: "mb-5",
+                    sm: 6,
+                    md: 4,
+                    xl: 3,
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        movie: movie,
+                        user: user,
+                        updateUserInfo: updateUserInfo
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/user-movie-list.jsx",
+                        lineNumber: 16,
+                        columnNumber: 13
+                    }, undefined)
+                }, movie._id, false, {
+                    fileName: "src/components/profile-view/user-movie-list.jsx",
+                    lineNumber: 15,
+                    columnNumber: 11
+                }, undefined)) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: "The favorite movies list is empty. Go ahead and add some!"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-movie-list.jsx",
-                lineNumber: 12,
-                columnNumber: 11
-            }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: "list is empty"
-            }, void 0, false, {
-                fileName: "src/components/profile-view/user-movie-list.jsx",
-                lineNumber: 13,
-                columnNumber: 11
+                lineNumber: 18,
+                columnNumber: 14
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/user-movie-list.jsx",
-        lineNumber: 9,
+        lineNumber: 10,
         columnNumber: 5
     }, undefined);
 };
-_s(UserMovielist, "t3zfaWniZG8Aewie/ZY58D9whIU=");
 _c = UserMovielist;
 var _c;
 $RefreshReg$(_c, "UserMovielist");

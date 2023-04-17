@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-// takes the prop onLoggedIn, see MainView
+// takes the prop onLoggedIn (also see MainView)
 export const LoginView = ({ onLoggedIn }) => {
 
   const [username, setUsername] = useState('');

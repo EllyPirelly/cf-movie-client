@@ -12048,18 +12048,14 @@ textarea.form-control-lg {
 }
 
 body {
-  min-height: 100%;
+  height: 100%;
+  min-height: 100vh;
   background-color: #6f1341;
   background-image: url("svg-rainbow-vortex.a4ce68b3.svg");
   background-repeat: no-repeat;
   background-size: cover;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 16px;
-}
-
-#root {
-  height: 100%;
-  width: 100%;
 }
 
 h2, .h2, h3, .h3, h4, .h4, p, label, span, .card-title {

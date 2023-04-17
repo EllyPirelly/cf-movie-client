@@ -49,7 +49,7 @@ export const UserUpdate = ({ updateUserInfo }) => {
     <div xs={12}>
       <h3>Update your information here:</h3>
       <Form onSubmit={handleUpdate}>
-        <Form.Group>
+        <Form.Group controlId='formGroupUsername'>
           <Form.Label>Username: </Form.Label>
           <Form.Control
             type='text'
@@ -60,7 +60,7 @@ export const UserUpdate = ({ updateUserInfo }) => {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group controlId='formGroupPassword'>
           <Form.Label>Password:</Form.Label>
           <Form.Control
             type='password'
@@ -70,7 +70,7 @@ export const UserUpdate = ({ updateUserInfo }) => {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group controlId='formGroupEmail'>
           <Form.Label>Email:</Form.Label>
           <Form.Control
             type='email'
@@ -80,7 +80,7 @@ export const UserUpdate = ({ updateUserInfo }) => {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group controlId='formGroupBirthday'>
           <Form.Label>Birthday:</Form.Label>
           <Form.Control
             type='date'

@@ -53,7 +53,7 @@ export const MainView = () => {
         }}
       />
 
-      <Row className='main-view__container justify-content-md-center'>
+      <Row className='main-view__container justify-content-md'>
         <Routes>
           <Route
             path='/signup'
@@ -97,8 +97,8 @@ export const MainView = () => {
                   <Navigate to='/login' replace />
                 ) : (
                   <Col xs={12}>
-                    {/* provide user (and with that, details about the user) and updateUserInfo (to update user info) to ProfileView as props */}
-                    <ProfileView user={user} updateUserInfo={updateUserInfo} />
+                    {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and all movies to other components as props */}
+                    <ProfileView user={user} updateUserInfo={updateUserInfo} movies={movies} />
                   </Col>
                 )}
               </>
@@ -115,9 +115,8 @@ export const MainView = () => {
                   <Col md={12}>The list is empty.</Col>
                 ) : (
                   <Col md={12}>
-                    {/* provide user (and with that, details about the user) and updateUserInfo (to update user info) to other components as props */}
+                    {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and all movies to other components as props */}
                     <MovieView movies={movies} user={user} updateUserInfo={updateUserInfo} />
-                    {/* <MovieView movies={movies} /> */}
                   </Col>
                 )}
               </>
@@ -136,7 +135,7 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
-                        {/* provide user (and with that, details about the user) and updateUserInfo (to update user info) to other components as props */}
+                        {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and single movie to other components as props */}
                         <MovieCard movie={movie} user={user} updateUserInfo={updateUserInfo} />
                       </Col>
                     ))}

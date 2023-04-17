@@ -33,7 +33,7 @@ export const MovieView = ({ user, movies, updateUserInfo }) => {
       })
       .then((user) => {
         if (user) {
-          alert('Successfully added.');
+          alert(`You successfully added the movie '${movie.title}' to your favorites list.`);
           setIsFavorite(true);
           updateUserInfo(user);
         }
@@ -55,12 +55,12 @@ export const MovieView = ({ user, movies, updateUserInfo }) => {
         if (response.ok) {
           return response.json();
         } else {
-          alert('Fail');
+          alert('Something went wrong.');
         }
       })
       .then((user) => {
         if (user) {
-          alert('Successfully deleted.');
+          alert(`You deleted the movie '${movie.title}' off of your favorites list.`);
           setIsFavorite(false);
           updateUserInfo(user);
         }
