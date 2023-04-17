@@ -48,6 +48,10 @@
   color: #fff;
 }
 
+.navbar-container .form-control {
+  background-color: #fff;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

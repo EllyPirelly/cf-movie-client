@@ -15,6 +15,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredmovies] = useState(movies);
 
   useEffect(() => {
     if (!token) {
@@ -42,6 +43,10 @@ export const MainView = () => {
     setUser(user);
   };
 
+  useEffect(() => {
+    setFilteredmovies(movies);
+  }, [movies]);
+
   return (
     <BrowserRouter>
       <NavigationBar
@@ -50,6 +55,9 @@ export const MainView = () => {
           setUser(null);
           setToken(null);
           localStorage.clear();
+        }}
+        handleSearch={(query) => {
+          setFilteredmovies(movies.filter((movie) => movie.title.toLowerCase().includes(query)));
         }}
       />
 
