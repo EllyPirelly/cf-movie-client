@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { Button, Form } from 'react-bootstrap';
 
-// takes the prop `onLoggedIn`
+// takes the prop onLoggedIn (also see MainView)
 export const LoginView = ({ onLoggedIn }) => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // makes an API call to the login URL passing the form data
   // callback tells the login API to validate username and password
   const handleSubmit = (event) => {
     // prevents default reloading of the entire page
@@ -27,48 +28,51 @@ export const LoginView = ({ onLoggedIn }) => {
       // transforms response to JSON object
       .then((response) => response.json())
       .then((data) => {
-        console.log('Login response: ', data);
+        // console.log('Login response: ', data);
         if (data.user) {
-          // localStorage to persist `user` and `token` data
+          // localStorage to persist user and token data
           // user will stay authenticated between page loads
           localStorage.setItem('user', JSON.stringify(data.user));
           localStorage.setItem('token', data.token);
-          // call prop `onLoggedIn`
-          // pass `user` and `token` back to `MainView` so they can be used in subsequent API requests
+          // call prop onLoggedIn
+          // pass user and token back to MainView so they can be used in subsequent API requests
           onLoggedIn(data.user, data.token);
         } else {
-          alert('No such user.');
+          alert('No such user, please check your credentials or sign-up.');
         }
       })
-      .catch((e) => {
-        alert('Something went wrong.');
+      .catch((error) => {
+        alert('Something went wrong: ' + error);
       });
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId='formUsername'>
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type='text'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          minLength='5'
-        />
-      </Form.Group>
+    <>
+      <h2>Log in</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId='formUsername'>
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
+            type='text'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            minLength='5'
+          />
+        </Form.Group>
 
-      <Form.Group controlId='formPassword'>
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </Form.Group>
+        <Form.Group controlId='formPassword'>
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </Form.Group>
 
-      <Button className='mt-3 mb-3' type='submit' variant='primary'>Log In</Button>
-    </Form>
+        <Button className='mt-3 mb-3' type='submit' variant='primary'>Log in</Button>
+      </Form>
+    </>
   );
 };

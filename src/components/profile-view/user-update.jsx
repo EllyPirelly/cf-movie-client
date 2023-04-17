@@ -1,52 +1,56 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
+import { UserDelete } from './user-delete';
 
-export const SignupView = () => {
+// updateUserInfo function is coming from MainView via prop
+export const UserUpdate = ({ updateUserInfo }) => {
 
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedToken = localStorage.getItem('token');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
-  const navigate = useNavigate();
-
-  // makes an API call to the signup URL passing the form data
-  // callback tells the login API to validate username, password, email, birthday
-  const handleSubmit = (event) => {
-    // prevents default reloading of the entire page
+  const handleUpdate = (event) => {
     event.preventDefault();
 
-    const data = {
+    const userdata = {
       userName: username,
       password: password,
       email: email,
       birthDate: birthday
     };
 
-    fetch('https://movie-pool.onrender.com/users', {
-      method: 'POST',
+    fetch(`https://movie-pool.onrender.com/users/${storedUser.userName}`, {
+      method: 'PUT',
       headers: {
+        Authorization: `Bearer ${storedToken}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(userdata)
     })
       .then((response) => {
-        if (response.ok) {
-          alert('You\'ve successfully signed up, please log in.');
-          navigate('/login');
-        } else {
-          alert('Signup failed.');
+        return response.json();
+      })
+      .then(user => {
+        if (user) {
+          // update user info
+          updateUserInfo(user);
         }
+        alert('You\'ve successfully updated your user information.');
+      })
+      .catch((error) => {
+        alert(error);
       });
   };
 
   return (
-    <>
-      <h2>Sign up</h2>
-      <Form onSubmit={handleSubmit}>
+    <div xs={12}>
+      <h3>Update your information here:</h3>
+      <Form onSubmit={handleUpdate}>
         <Form.Group controlId='formGroupUsername'>
-          <Form.Label>Username:</Form.Label>
+          <Form.Label>Username: </Form.Label>
           <Form.Control
             type='text'
             value={username}
@@ -86,8 +90,11 @@ export const SignupView = () => {
           />
         </Form.Group>
 
-        <Button className='mt-3 mb-3' type='submit' variant='primary'>Sign up</Button>
+        <div>
+          <Button className='mt-3 mb-3' type='submit' variant='primary'>Update User Info</Button>
+          <UserDelete />
+        </div>
       </Form>
-    </>
+    </div>
   );
 };

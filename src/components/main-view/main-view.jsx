@@ -1,51 +1,26 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { ProfileView } from '../profile-view/profile-view';
+import { NavigationBar } from '../navigation-bar/navigation-bar';
+import { Col, Row } from 'react-bootstrap';
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+
   const storedUser = JSON.parse(localStorage.getItem('user'));
-  const [user, setUser] = useState(storedUser ? storedUser : null);
   const storedToken = localStorage.getItem('token');
+  const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
-
-  // TODO: delete in the process
-  // useEffect(() => {
-  //   fetch('https://movie-pool.onrender.com/movies')
-  //     .then((response) => response.json()
-  //       .then((data) => {
-  //         const moviesFromApi = data.map((movie) => {
-  //           return {
-  //             id: movie._id,
-  //             description: movie.description,
-  //             director: {
-  //               directorName: movie.director.directorName,
-  //               bio: movie.director.bio
-  //             },
-  //             genre: {
-  //               genreName: movie.genre.genreName,
-  //               description: movie.genre.description
-  //             },
-  //             imagePath: movie.imagePath,
-  //             title: movie.title
-  //           };
-  //         });
-
-  //         setMovies(moviesFromApi);
-  //         console.log('movies from api: ', data);
-  //       }));
-  // }, []);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (!token) {
       return;
-    }
+    };
+
     fetch('https://movie-pool.onrender.com/movies', {
       headers: {
         // Bearer Authorization enables authenticated API requests
@@ -56,58 +31,121 @@ export const MainView = () => {
       .then((movies) => {
         setMovies(movies);
       });
-    // dependency array; ensures fetch is called every time `token` changes
+    // dependency array; ensures fetch is called every time token changes
   }, [token]);
 
+  // as user info will be updated by multiple components it's best to set it in MainView and pass it from here to any component that changes the user info
+  const updateUserInfo = (user) => {
+    delete user.password;
+    // set localStorage user to overwrite the existing one
+    localStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
+  };
+
   return (
-    <Row className='justify-content-md-center'>
-      {!user ? (
-        <Col xs={12}>
-          <h2>Log in</h2>
-          <LoginView onLoggedIn={(user, token) => {
-            setUser(user);
-            setToken(token);
-          }} />
-          <h2>Or sign up</h2>
-          <SignupView />
-          {/* <Button variant='secondary' className='w-100' onClick={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear();
-          }}>Logout</Button> */}
-        </Col>
-      ) : selectedMovie ? (
-        <Col md={12}>
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => {
-              setSelectedMovie(null);
-            }}
+    <BrowserRouter>
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
+
+      <Row className='main-view__container justify-content-md'>
+        <Routes>
+          <Route
+            path='/signup'
+            element={
+              <>
+                {user ? (
+                  <Navigate to='/' />
+                ) : (
+                  <Col xs={12}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
           />
 
-        </Col>
-      ) : movies.length === 0 ? (
-        <div>The list is empty.</div>
-      ) : (
-        <>
-          {movies.map((movie) => (
-            <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
-              <MovieCard
-                movie={movie}
-                onMovieClick={(newSelectedMovie) => {
-                  setSelectedMovie(newSelectedMovie);
-                }}
-              />
-            </Col>
-          ))}
+          <Route
+            path='/login'
+            element={
+              <>
+                {user ? (
+                  <Navigate to='/' />
+                ) : (
+                  <Col xs={12}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }} />
+                  </Col>
+                )}
+              </>
+            }
+          />
 
-          <Button variant='secondary' className='w-50' onClick={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear();
-          }}>Logout</Button>
-        </>
-      )}
-    </Row>
+          <Route
+            path='/profile'
+            element={
+              <>
+                {!user ? (
+                  <Navigate to='/login' replace />
+                ) : (
+                  <Col xs={12}>
+                    {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and all movies to other components as props */}
+                    <ProfileView user={user} updateUserInfo={updateUserInfo} movies={movies} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path='/movies/:movieId'
+            element={
+              <>
+                {!user ? (
+                  <Navigate to='/login' replace />
+                ) : movies.length === 0 ? (
+                  <Col md={12}>The list is empty.</Col>
+                ) : (
+                  <Col md={12}>
+                    {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and all movies to other components as props */}
+                    <MovieView movies={movies} user={user} updateUserInfo={updateUserInfo} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path='/'
+            element={
+              <>
+                {!user ? (
+                  <Navigate to='/login' replace />
+                ) : movies.length === 0 ? (
+                  <Col md={12}>The list is empty.</Col>
+                ) : (
+                  <>
+                    {movies.map((movie) => (
+                      <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
+                        {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and single movie to other components as props */}
+                        <MovieCard movie={movie} user={user} updateUserInfo={updateUserInfo} />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
   );
 };

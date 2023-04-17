@@ -1,34 +1,116 @@
-import { Button, Image } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 
-export const MovieView = ({ movie, onBackClick }) => {
+// user prop holds user info - including fav movies!
+export const MovieView = ({ user, movies, updateUserInfo }) => {
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { movieId } = useParams();
+  const movie = movies.find((movie) => movie._id === movieId);
+
+  useEffect(() => {
+    if (user.favoriteMovies && movie._id) {
+      setIsFavorite(user.favoriteMovies.includes(movie._id))
+    }
+  }, [movie]);
+
+  const addFavorite = () => {
+
+    const token = localStorage.getItem('token');
+
+    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movie._id}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert('Fail');
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert(`You successfully added the movie '${movie.title}' to your favorites list.`);
+          setIsFavorite(true);
+          updateUserInfo(user);
+        }
+      })
+      .catch((error) => {
+        alert('Error message: ' + error);
+      });
+  };
+
+  const deleteFavorite = () => {
+
+    const token = localStorage.getItem('token');
+
+    fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movie._id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert('Something went wrong.');
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert(`You deleted the movie '${movie.title}' off of your favorites list.`);
+          setIsFavorite(false);
+          updateUserInfo(user);
+        }
+      })
+      .catch((error) => {
+        alert('Error message: ' + error);
+      });
+  };
+
   return (
-    <div>
-      <div>
-        <Image className="img-fluid w-50 h-auto" src={movie.imagePath} />
-      </div>
+    <Container>
+      <Row>
+        <Col xs={6}>
+          <Image className='img-fluid h-auto' src={movie.imagePath} />
+        </Col>
 
-      <h3>{movie.title}</h3>
+        <Col xs={6}>
+          <Link to={`/`}>
+            <Button variant='secondary' className="w-100">Back to movies</Button>
+          </Link>
+          {/* toggle button based on whether the movie is listed in the user's favorites or not */}
+          {isFavorite
+            ? (<Button onClick={deleteFavorite} variant='warning' className='w-100 mt-4'>Remove from List</Button>)
+            : (<Button onClick={addFavorite} variant='success' className='w-100 mt-4'>Add to favorites</Button>)
+          }
+        </Col>
+      </Row>
 
-      <div>
-        <h4>Description: </h4>
-        <p>{movie.description}</p>
-      </div>
+      <Row className='mt-4'>
+        <Col>
+          <h2>{movie.title}</h2>
+        </Col>
+      </Row>
 
-      <div>
-        <h4>Genre: </h4>
-        <p>{movie.genre.genreName}</p>
-        <h4>Genre Description: </h4>
-        <p>{movie.genre.description}</p>
-      </div>
-
-      <div>
-        <h4>Director: </h4>
-        <p>{movie.director.directorName}</p>
-        <h4>Director Bio: </h4>
-        <p>{movie.director.bio}</p>
-      </div>
-
-      <Button onClick={onBackClick} variant='secondary'>Back</Button>
-    </div>
+      <Row className='mt-4'>
+        <Col>
+          <div>
+            <h4>Plot: </h4>
+            <p>{movie.description}</p>
+            <h4>Genre: </h4>
+            <p>{movie.genre.genreName}</p>
+            <h4>Director: </h4>
+            <p>{movie.director.directorName}</p>
+            <h4>More details about the genre {movie.genre.genreName}: </h4>
+            <p>{movie.genre.description}</p>
+            <h4>More details about the director {movie.director.directorName}: </h4>
+            <p>{movie.director.bio}</p>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
