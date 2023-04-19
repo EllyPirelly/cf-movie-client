@@ -15,7 +15,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [filteredMovies, setFilteredmovies] = useState(movies);
+  const [filteredMovies, setFilteredmovies] = useState([]);
 
   useEffect(() => {
     if (!token) {
@@ -47,6 +47,15 @@ export const MainView = () => {
     setFilteredmovies(movies);
   }, [movies]);
 
+  // always start from the complete movies array
+  // movies is the comprehensive storage of all movies
+  // setFilteredmovies call tempArray, that has just the movies that have the searchQuery in the title
+  const handleSearch = (e) => {
+    const searchQuery = e.target.value.toLowerCase();
+    let tempArray = movies.filter((index) => index.title.toLowerCase().includes(searchQuery));
+    setFilteredmovies(tempArray);
+  }
+
   return (
     <BrowserRouter>
       <NavigationBar
@@ -56,9 +65,7 @@ export const MainView = () => {
           setToken(null);
           localStorage.clear();
         }}
-        handleSearch={(query) => {
-          setFilteredmovies(movies.filter((movie) => movie.title.toLowerCase().includes(query)));
-        }}
+        handleSearch={handleSearch}
       />
 
       <Row className='main-view__container justify-content-md'>
@@ -141,7 +148,8 @@ export const MainView = () => {
                   <Col md={12}>The list is empty.</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
+                      // {movies.map((movie) => (
                       <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
                         {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and single movie to other components as props */}
                         <MovieCard movie={movie} user={user} updateUserInfo={updateUserInfo} />

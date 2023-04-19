@@ -1,15 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // takes the props unser, onLoggedIn (also see MainView)
 export const NavigationBar = ({ user, onLoggedOut, handleSearch }) => {
-
-  const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    handleSearch(query);
-  }, [query]);
 
   const imageUrl = new URL(
     '../../img/svg.clapperboard.svg',
@@ -28,7 +21,7 @@ export const NavigationBar = ({ user, onLoggedOut, handleSearch }) => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
 
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='me-auto'>
+            <Nav className='me-auto mt-2 mt-lg-0'>
               {!user && (
                 <>
                   <Nav.Link as={Link} to='/login'>
@@ -50,20 +43,14 @@ export const NavigationBar = ({ user, onLoggedOut, handleSearch }) => {
                   <Nav.Link onClick={onLoggedOut}>
                     Log out
                   </Nav.Link>
-                  <Form className="d-flex w-100">
+                  <Form className="d-flex mt-3 ms-lg-3 mt-lg-0">
                     <Form.Control
                       type="search"
-                      placeholder="Search"
+                      placeholder="Search by Title"
                       className="me-2"
                       aria-label="Search"
-                      value={query}
-                      onChange={e => {
-                        setQuery(e.target.value);
-                      }}
+                      onChange={handleSearch}
                     />
-                    <Button variant='outline-secondary' onClick={() => {
-                      handleSearch(query);
-                    }}>Search</Button>
                   </Form>
                 </>
               )}

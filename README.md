@@ -15,8 +15,8 @@ This App has been built as a task for Achievement 3 in [Career Foundry's Full-St
   - must contain function components
   - must use state routing to navigate
   - must use React Bootstrap (components, styling, responsivenss (Grid))
-  - must include search feature
-  - must be hosted online
+  - must include search feature (filter movie list)
+  - must be hosted online on Netlify
   - may use React Redux for state management of at least one feature (i.e.,
 filtering movies)
 
@@ -33,7 +33,7 @@ In this Movie App
   - to delete movies off of your list of favorite movies
   - to update your user information
   - to log out
-  - TODO: search feature
+  - to filter for a movie by title on home page (MainView)
 
 ### Languages, Libraries, Frameworks, Tools
 - HTML

@@ -20,12 +20,13 @@
 }
 
 .navbar-container {
-  background-color: #801843;
+  background-color: #6f1341;
+  box-shadow: 0 14px 28px #28282840, 0 10px 10px #28282838;
 }
 
 .navbar-container .navbar-brand {
-  color: #000;
-  background-color: #fff;
+  color: #282828;
+  background-color: #ffffffa6;
   border-radius: 8px;
   padding: 6px;
 }
@@ -44,12 +45,26 @@
   align-items: flex-end;
 }
 
+.navbar-container .navbar-nav input {
+  margin-right: 0 !important;
+}
+
 .navbar-container .nav-link {
   color: #fff;
 }
 
 .navbar-container .form-control {
   background-color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .navbar-container .navbar-collapse {
+    flex-grow: initial !important;
+  }
+
+  .navbar-container .navbar-expand-lg {
+    flex-basis: initial !important;
+  }
 }
 
 :root {
