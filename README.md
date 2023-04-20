@@ -6,6 +6,8 @@ This MoviePool Single Page Application is for movie lovers that want to be able 
 <br>
 This App has been built as a task for Achievement 3 in [Career Foundry's Full-Stack Web Development Program](https://careerfoundry.com/en/courses/become-a-web-developer/).
 
+![Screenshot of the Movie Client](src/img/screenshot-movie-client.png)
+
 ### Technical requirements
 - MERN stack must be used (React library)
 - the MoviePool App
