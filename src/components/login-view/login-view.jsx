@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 
 // takes the prop onLoggedIn (also see MainView)
 export const LoginView = ({ onLoggedIn }) => {
@@ -50,28 +50,32 @@ export const LoginView = ({ onLoggedIn }) => {
     <>
       <h2>Log in</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId='formUsername'>
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type='text'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            minLength='5'
-          />
-        </Form.Group>
+        <Row>
+          <Form.Group as={Col} xs={12} md={6} controlId='formUsername' className='mb-3'>
+            <Form.Label>Username:</Form.Label>
+            <Form.Control
+              type='text'
+              placeholder='Username'
+              value={username}
+              minLength='5'
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Form.Group>
 
-        <Form.Group controlId='formPassword'>
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
+          <Form.Group as={Col} xs={12} md={6} controlId='formPassword' className='mb-3'>
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Password'
+              value={password}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+        </Row>
 
-        <Button className='mt-3 mb-3' type='submit' variant='primary'>Log in</Button>
+        <Button className='mt-3' type='submit' variant='primary'>Log in</Button>
       </Form>
     </>
   );

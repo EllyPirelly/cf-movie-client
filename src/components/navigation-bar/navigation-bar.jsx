@@ -24,11 +24,11 @@ export const NavigationBar = ({ user, onLoggedOut, handleSearch }) => {
             <Nav className='me-auto mt-2 mt-lg-0'>
               {!user && (
                 <>
-                  <Nav.Link as={Link} to='/login'>
-                    Log in
-                  </Nav.Link>
                   <Nav.Link as={Link} to='/signup'>
                     Sign up
+                  </Nav.Link>
+                  <Nav.Link as={Link} to='/login'>
+                    Log in
                   </Nav.Link>
                 </>
               )}
