@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { LoginView } from '../login-view/login-view';
-import { SignupView } from '../signup-view/signup-view';
-import { ProfileView } from '../profile-view/profile-view';
-import { NavigationBar } from '../navigation-bar/navigation-bar';
-import { Col, Row } from 'react-bootstrap';
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { Col, Row, Form } from "react-bootstrap";
 
 export const MainView = () => {
 
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedToken = localStorage.getItem('token');
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
@@ -22,7 +22,7 @@ export const MainView = () => {
       return;
     };
 
-    fetch('https://movie-pool.onrender.com/movies', {
+    fetch("https://movie-pool.onrender.com/movies", {
       headers: {
         // Bearer Authorization enables authenticated API requests
         Authorization: `Bearer ${token}`
@@ -39,7 +39,7 @@ export const MainView = () => {
   const updateUserInfo = (user) => {
     delete user.password;
     // set localStorage user to overwrite the existing one
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   };
 
@@ -68,14 +68,14 @@ export const MainView = () => {
         handleSearch={handleSearch}
       />
 
-      <Row className='main-view__container justify-content-md'>
+      <Row className="main-view__container justify-content-md">
         <Routes>
           <Route
-            path='/signup'
+            path="/signup"
             element={
               <>
                 {user ? (
-                  <Navigate to='/' />
+                  <Navigate to="/" />
                 ) : (
                   <Col xs={12}>
                     <SignupView />
@@ -86,11 +86,11 @@ export const MainView = () => {
           />
 
           <Route
-            path='/login'
+            path="/login"
             element={
               <>
                 {user ? (
-                  <Navigate to='/' />
+                  <Navigate to="/" />
                 ) : (
                   <Col xs={12}>
                     <LoginView
@@ -105,11 +105,11 @@ export const MainView = () => {
           />
 
           <Route
-            path='/profile'
+            path="/profile"
             element={
               <>
                 {!user ? (
-                  <Navigate to='/login' replace />
+                  <Navigate to="/login" replace />
                 ) : (
                   <Col xs={12}>
                     {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and all movies to other components as props */}
@@ -121,11 +121,11 @@ export const MainView = () => {
           />
 
           <Route
-            path='/movies/:movieId'
+            path="/movies/:movieId"
             element={
               <>
                 {!user ? (
-                  <Navigate to='/login' replace />
+                  <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
                   <Col md={12}>The list is empty.</Col>
                 ) : (
@@ -139,18 +139,28 @@ export const MainView = () => {
           />
 
           <Route
-            path='/'
+            path="/"
             element={
               <>
                 {!user ? (
-                  <Navigate to='/login' replace />
+                  <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
                   <Col md={12}>The list is empty.</Col>
                 ) : (
                   <>
+                    <Col xs={12} className="d-flex justify-content-md-center">
+                      <Form xs={12} className="mt-4 mb-5 w-100">
+                        <Form.Control
+                          type="search"
+                          placeholder="Search by title"
+                          className="movie-search"
+                          aria-label="Search"
+                          onChange={handleSearch}
+                        />
+                      </Form>
+                    </Col>
                     {filteredMovies.map((movie) => (
-                      // {movies.map((movie) => (
-                      <Col className='mb-5' key={movie._id} sm={6} md={4} xl={3}>
+                      <Col className="mb-5" key={movie._id} sm={6} md={4} xl={3}>
                         {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and single movie to other components as props */}
                         <MovieCard movie={movie} user={user} updateUserInfo={updateUserInfo} />
                       </Col>

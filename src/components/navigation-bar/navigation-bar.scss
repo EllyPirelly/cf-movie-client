@@ -20,20 +20,20 @@
     vertical-align: top;
   }
 
-  & .navbar-nav {
+  & .navbar-avatar-container {
     align-items: flex-end;
-
-    & input {
-      margin-right: 0 !important;
-    }
+    display: flex;
+    flex-direction: column;
   }
 
-  & .nav-link {
-    color: #fff;
+  & .navbar-avatar {
+    color: rgba(255, 255, 255, 0.65);
+    height: 1.5rem;
+    width: auto;
   }
 
-  & .form-control {
-    background-color: #fff;
+  & .dropdown-toggle:after {
+    display: none;
   }
 
   & .navbar-collapse {
@@ -46,5 +46,9 @@
     @media screen and (min-width: 992px) {
       flex-basis: initial !important;
     }
+  }
+
+  & .dropdown-item {
+    text-align: right;
   }
 }
