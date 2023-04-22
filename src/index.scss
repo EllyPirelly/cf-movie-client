@@ -1,13 +1,15 @@
-@import '/src/components/main-view/main-view.scss';
-@import '/src/components/movie-card/movie-card';
-@import '/src/components/navigation-bar/navigation-bar';
+@import "/src/components/main-view/main-view.scss";
+@import "/src/components/movie-card/movie-card";
+@import "/src/components/movie-view/movie-view";
+@import "/src/components/navigation-bar/navigation-bar";
+@import "/src/components/spinner/spinner";
 $primary: #ed6e2d;
 $secondary: #d4d4d4;
 $info: #6f1341;
 $body-bg: #f6cab5;
 $body-color: #282828;
 // $body-color: rgb(40, 40, 40);
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
 
 * {
   box-sizing: border-box;
@@ -17,7 +19,7 @@ $body-color: #282828;
 
 body {
   background-color: #6f1341;
-  background-image: url('../src/img/svg-rainbow-vortex.svg');
+  background-image: url("../src/img/svg-rainbow-vortex.svg");
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

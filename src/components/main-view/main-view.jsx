@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Col, Row, Form } from "react-bootstrap";
+import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view";
-import { ProfileView } from "../profile-view/profile-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { Col, Row, Form } from "react-bootstrap";
+import { ProfileView } from "../profile-view/profile-view";
+import { SignupView } from "../signup-view/signup-view";
+import { LoadingSpinner } from "../spinner/spinner";
 
 export const MainView = () => {
 
@@ -127,7 +128,7 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col md={12}>The list is empty.</Col>
+                  <LoadingSpinner />
                 ) : (
                   <Col md={12}>
                     {/* provide user (and with that, details about the user), updateUserInfo (to update user info) and all movies to other components as props */}
@@ -145,7 +146,9 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col md={12}>The list is empty.</Col>
+                  <>
+                    <LoadingSpinner />
+                  </>
                 ) : (
                   <>
                     <Col xs={12} className="d-flex justify-content-md-center">

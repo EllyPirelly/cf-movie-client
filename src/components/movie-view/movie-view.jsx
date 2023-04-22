@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 
 // user prop holds user info - including fav movies!
 export const MovieView = ({ user, movies, updateUserInfo }) => {
@@ -18,17 +17,17 @@ export const MovieView = ({ user, movies, updateUserInfo }) => {
 
   const addFavorite = () => {
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movie._id}`, {
-      method: 'POST',
+      method: "POST",
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          alert('Fail');
+          alert("Fail");
         }
       })
       .then((user) => {
@@ -39,23 +38,23 @@ export const MovieView = ({ user, movies, updateUserInfo }) => {
         }
       })
       .catch((error) => {
-        alert('Error message: ' + error);
+        alert("Error message: " + error);
       });
   };
 
   const deleteFavorite = () => {
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     fetch(`https://movie-pool.onrender.com/users/${user.userName}/movies/${movie._id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          alert('Something went wrong.');
+          alert("Something went wrong.");
         }
       })
       .then((user) => {
@@ -66,49 +65,53 @@ export const MovieView = ({ user, movies, updateUserInfo }) => {
         }
       })
       .catch((error) => {
-        alert('Error message: ' + error);
+        alert("Error message: " + error);
       });
   };
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-md-center movie-view-container">
       <Row>
-        <Col xs={6}>
-          <Image className='img-fluid h-auto' src={movie.imagePath} />
+        <Col xs={12} md={6} lg={4}>
+          <Image className="img-fluid h-auto" src={movie.imagePath} />
         </Col>
 
-        <Col xs={6}>
-          <Link to={`/`}>
-            <Button variant='secondary' className="w-100">Back to movies</Button>
-          </Link>
+        <Col xs={12} md={6} lg={8} className="mt-4">
+          <h2>{movie.title}</h2>
+          <h4>Plot</h4>
+          <p>{movie.description}</p>
           {/* toggle button based on whether the movie is listed in the user's favorites or not */}
           {isFavorite
-            ? (<Button onClick={deleteFavorite} variant='warning' className='w-100 mt-4'>Remove from List</Button>)
-            : (<Button onClick={addFavorite} variant='success' className='w-100 mt-4'>Add to favorites</Button>)
+            ? (
+              <Button
+                onClick={deleteFavorite}
+                variant="warning"
+                className="movie-fav-button mt-4">
+                Remove from List
+              </Button>
+            )
+            : (
+              <Button
+                onClick={addFavorite}
+                variant="success"
+                className="movie-fav-button mt-4">
+                Add to favorites
+              </Button>
+            )
           }
         </Col>
       </Row>
 
-      <Row className='mt-4'>
-        <Col>
-          <h2>{movie.title}</h2>
-        </Col>
-      </Row>
-
-      <Row className='mt-4'>
-        <Col>
-          <div>
-            <h4>Plot: </h4>
-            <p>{movie.description}</p>
-            <h4>Genre: </h4>
-            <p>{movie.genre.genreName}</p>
-            <h4>Director: </h4>
-            <p>{movie.director.directorName}</p>
-            <h4>More details about the genre {movie.genre.genreName}: </h4>
-            <p>{movie.genre.description}</p>
-            <h4>More details about the director {movie.director.directorName}: </h4>
-            <p>{movie.director.bio}</p>
-          </div>
+      <Row className="mt-4">
+        <Col xs={12}>
+          <h4>Director</h4>
+          <p>{movie.director.directorName}</p>
+          <h4>More details about {movie.director.directorName}</h4>
+          <p>{movie.director.bio}</p>
+          <h4>Genre</h4>
+          <p>{movie.genre.genreName}</p>
+          <h4>More details about the genre {movie.genre.genreName}</h4>
+          <p>{movie.genre.description}</p>
         </Col>
       </Row>
     </Container>
