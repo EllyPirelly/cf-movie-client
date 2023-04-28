@@ -2,9 +2,11 @@
 
 ### What is this about?
 
-This MoviePool Single Page Application is for movie lovers that want to be able to access information about different movies. It's the client-side to the [RESTful Movie API](https://github.com/EllyPirelly/cf-movie-api) and the R part of the MERN stack.
+This responsive Single Page Application is for movie lovers that want to be able to access information about movies and once signed up, manage their favorite movies. It's the client-side to the [RESTful Movie API](https://github.com/EllyPirelly/cf-movie-api) and the R part of the MERN stack used in combination said API. Build with parcel.js, React and React-Bootstrap.
 <br>
 This App has been built as a task for Achievement 3 in [Career Foundry's Full-Stack Web Development Program](https://careerfoundry.com/en/courses/become-a-web-developer/).
+<br>
+It is [hosted on netlify](https://movie-pool-app.netlify.app/login)
 
 ![Screenshot of the Movie Client](src/img/screenshot-movie-client.png)
 
